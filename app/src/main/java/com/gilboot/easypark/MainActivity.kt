@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration =
             AppBarConfiguration(
                 setOf(
-                    R.id.signupFragment
+                    R.id.signupFragment,
+                    R.id.infoFragment
                 ),
                 drawerLayout
             )

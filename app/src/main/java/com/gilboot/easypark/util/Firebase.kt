@@ -2,7 +2,6 @@ package com.gilboot.easypark.util
 
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -17,9 +16,13 @@ val db: FirebaseFirestore = Firebase.firestore
 
 val storage: FirebaseStorage = Firebase.storage
 
-val journeyCollection: CollectionReference = db.collection("journeys")
+val userCollection: CollectionReference = db.collection("users")
+val vehicleCollection: CollectionReference = db.collection("vehicles")
+val parkCollection: CollectionReference = db.collection("parks")
+val visitCollection: CollectionReference = db.collection("visits")
 
-val descendingJourneyListQuery: Query = journeyCollection.orderBy("id", Query.Direction.DESCENDING)
+
+//val descendingJourneyListQuery: Query = journeyCollection.orderBy("id", Query.Direction.DESCENDING)
 
 val searchCollection: CollectionReference = db.collection("searches")
 
@@ -46,7 +49,8 @@ val searchCollection: CollectionReference = db.collection("searches")
 
 fun uploadPicture(
     stream: InputStream,
-    onUpload: (pictureUrl: String) -> Unit
+    onUpload: (pictureUrl: String) -> Unit,
+    onError: (err: String) -> Unit
 ) {
     val name = Date().time.toString()
     val uploadRef: StorageReference = storage.reference.child("images").child(name)
@@ -54,7 +58,10 @@ fun uploadPicture(
         .putStream(stream)
         .continueWithTask { task ->
             if (!task.isSuccessful) {
-                task.exception?.let { throw it }
+                onError("Failed to upload")
+                task.exception?.let {
+                    throw it
+                }
             }
             uploadRef.downloadUrl
         }
