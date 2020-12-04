@@ -17,7 +17,7 @@ fun ParkViewModel.setParkInfo(name: String, tel: String) {
     parkLiveData.value = parkLiveData.value!!.copy(name = name, tel = tel)
 }
 
-fun ParkViewModel.setParkLoc(lat: Long, lng: Long) {
+fun ParkViewModel.setParkLoc(lat: Double, lng: Double) {
     parkLiveData.value = parkLiveData.value!!.copy(lat = lat, lng = lng)
 }
 
