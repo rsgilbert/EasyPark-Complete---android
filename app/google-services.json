@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "362000515016",
+    "firebase_url": "https://rs-easypark.firebaseio.com",
+    "project_id": "rs-easypark",
+    "storage_bucket": "rs-easypark.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362000515016:android:9d2cd5aa49d76120ff4afd",
+        "android_client_info": {
+          "package_name": "com.gilboot.easypark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362000515016-48a627qb2lpjfin6eh35jmns9qk4p2q0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUhWyQY-Y28wGDkshE8sjYGUVW0FAKdWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362000515016-48a627qb2lpjfin6eh35jmns9qk4p2q0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
