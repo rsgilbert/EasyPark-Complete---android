@@ -14,5 +14,6 @@ data class Park(
     val displayPicture: String = "",
     val pictures: List<String> = emptyList(),
     val lat: Double = 0.0,
-    val lng: Double = 0.0
+    val lng: Double = 0.0,
+    val rate: Double = 0.0
 ) : Parcelable

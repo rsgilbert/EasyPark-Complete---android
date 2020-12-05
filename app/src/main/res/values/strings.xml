@@ -12,4 +12,8 @@
     <string name="add_pic">Add Picture</string>
     <string name="finish">Finish</string>
     <string name="dashboard">Dashboard</string>
+    <string name="plateno">Number Plate</string>
+    <string name="vehicle">Vehicle</string>
+    <string name="parkrate">Rate: %1d</string>
+    <string name="parks">Parks</string>
 </resources>

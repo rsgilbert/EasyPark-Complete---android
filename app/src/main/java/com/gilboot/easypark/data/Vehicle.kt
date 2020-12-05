@@ -9,6 +9,5 @@ data class Vehicle(
     val id: String = "",
     val driverId: String = "",
     val numberplate: String = "",
-    val displayPicture: String = "",
-    val pictures: List<String> = emptyList()
+    val displayPicture: String = ""
 ) : Parcelable

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="driverViewModel"
+            type="com.gilboot.easypark.driver.registration.DriverViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/spacing_normal"
+        android:paddingTop="24dp"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/picture"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher"
+            app:setVehicleDP="@{driverViewModel.vehicleLiveData}" />
+
+        <EditText
+            android:id="@+id/edit_plateno"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="10dp"
+            android:cursorVisible="true"
+            android:drawablePadding="5dp"
+            android:hint="@string/plateno"
+            android:inputType="text"
+            android:padding="8dp"
+            android:text="@{driverViewModel.vehicleLiveData.numberplate}"
+            android:textCursorDrawable="@null" />
+
+
+    </LinearLayout>
+</layout>

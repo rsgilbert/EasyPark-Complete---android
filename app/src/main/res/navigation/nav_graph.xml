@@ -46,5 +46,28 @@
         android:name="com.gilboot.easypark.park.dashboard.DashboardFragment"
         android:label="@string/dashboard"
         tools:layout="@layout/frag_dashboard_park" />
+    <fragment
+        android:id="@+id/driverInfoFragment"
+        android:name="com.gilboot.easypark.driver.registration.InfoFragment"
+        android:label="@string/info"
+        tools:layout="@layout/frag_info_driver_reg">
+        <action
+            android:id="@+id/action_driverInfoFragment_to_vehicleFragment"
+            app:destination="@id/vehicleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/vehicleFragment"
+        android:name="com.gilboot.easypark.driver.registration.VehicleFragment"
+        android:label="@string/vehicle"
+        tools:layout="@layout/frag_vehicle_driver_reg">
+        <action
+            android:id="@+id/action_vehicleFragment_to_parksFragment"
+            app:destination="@id/parksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/parksFragment"
+        android:name="com.gilboot.easypark.driver.parks.ParksFragment"
+        android:label="@string/parks"
+        tools:layout="@layout/frag_parks" />
 
 </navigation>

@@ -37,7 +37,9 @@ class MainActivity : AppCompatActivity() {
                 setOf(
                     R.id.signupFragment,
                     R.id.infoFragment,
-                    R.id.dashboardFragment
+                    R.id.dashboardFragment,
+                    R.id.driverInfoFragment,
+                    R.id.parksFragment
                 ),
                 drawerLayout
             )
