@@ -7,7 +7,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Vehicle(
     val id: String = "",
-    val userId: String = "",
+    val driverId: String = "",
     val numberplate: String = "",
+    val displayPicture: String = "",
     val pictures: List<String> = emptyList()
 ) : Parcelable

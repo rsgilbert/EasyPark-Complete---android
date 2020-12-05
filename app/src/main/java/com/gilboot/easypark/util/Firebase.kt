@@ -1,8 +1,10 @@
 package com.gilboot.easypark.util
 
+import com.gilboot.easypark.data.Vehicle
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -46,6 +48,16 @@ val searchCollection: CollectionReference = db.collection("searches")
 //    saveSearch(search)
 //}
 //
+
+fun withVehicle(vehicleId: String, lambda: (vehicle: Vehicle) -> Unit) {
+    vehicleCollection.document(vehicleId)
+        .get()
+        .addOnSuccessListener {
+            Timber.i("Document is $it")
+            lambda(it.toObject()!!)
+        }
+}
+
 
 fun uploadPicture(
     stream: InputStream,
