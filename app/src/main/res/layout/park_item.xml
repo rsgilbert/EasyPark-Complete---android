@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="park"
+            type="com.gilboot.easypark.data.Park" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="16sp"
+        android:paddingRight="16sp">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/picture"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher"
+            app:imageUrl="@{park.displayPicture}" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="16sp"
+            android:paddingTop="8sp"
+            android:paddingRight="16sp">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="@{park.name}"
+                android:textColor="@android:color/primary_text_light"
+                android:textSize="16sp"
+                tools:text="Salaama Park" />
+
+            <TextView
+                android:id="@+id/rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:text="@{@string/parkrate(park.rate)}"
+                android:textColor="@android:color/primary_text_light"
+                android:textSize="16sp"
+                tools:text="Rate: 2000 per hour" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

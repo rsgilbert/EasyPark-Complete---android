@@ -3,11 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/signupFragment">
+    app:startDestination="@id/infoFragment">
 
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.gilboot.easypark.signup.SignupFragment"
         android:label="@string/signup"
-        tools:layout="@layout/frag_signup" />
+        tools:layout="@layout/frag_signup">
+        <action
+            android:id="@+id/action_signupFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.gilboot.easypark.park.registration.InfoFragment"
+        android:label="@string/info"
+        tools:layout="@layout/frag_info_reg">
+        <action
+            android:id="@+id/action_infoFragment_to_pictureFragment"
+            app:destination="@id/pictureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pictureFragment"
+        android:name="com.gilboot.easypark.park.registration.PictureFragment"
+        android:label="@string/picture"
+        tools:layout="@layout/frag_picture_reg">
+        <action
+            android:id="@+id/action_pictureFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.gilboot.easypark.park.registration.LocationFragment"
+        android:label="@string/location"
+        tools:layout="@layout/frag_location_reg">
+        <action
+            android:id="@+id/action_locationFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.gilboot.easypark.park.dashboard.DashboardFragment"
+        android:label="@string/dashboard"
+        tools:layout="@layout/frag_dashboard_park" />
+    <fragment
+        android:id="@+id/driverInfoFragment"
+        android:name="com.gilboot.easypark.driver.registration.InfoFragment"
+        android:label="@string/info"
+        tools:layout="@layout/frag_info_driver_reg">
+        <action
+            android:id="@+id/action_driverInfoFragment_to_vehicleFragment"
+            app:destination="@id/vehicleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/vehicleFragment"
+        android:name="com.gilboot.easypark.driver.registration.VehicleFragment"
+        android:label="@string/vehicle"
+        tools:layout="@layout/frag_vehicle_driver_reg">
+        <action
+            android:id="@+id/action_vehicleFragment_to_parksFragment"
+            app:destination="@id/parksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/parksFragment"
+        android:name="com.gilboot.easypark.driver.parks.ParksFragment"
+        android:label="@string/parks"
+        tools:layout="@layout/frag_parks" />
+
 </navigation>

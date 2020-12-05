@@ -3,4 +3,17 @@
     <string name="search_hint">Search</string>
     <string name="email">Email</string>
     <string name="signup">Signup</string>
+    <string name="next">Next</string>
+    <string name="name">Name</string>
+    <string name="tel">Telephone</string>
+    <string name="picture">Picture</string>
+    <string name="info">Information</string>
+    <string name="location">Location</string>
+    <string name="add_pic">Add Picture</string>
+    <string name="finish">Finish</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="plateno">Number Plate</string>
+    <string name="vehicle">Vehicle</string>
+    <string name="parkrate">Rate: %1d</string>
+    <string name="parks">Parks</string>
 </resources>

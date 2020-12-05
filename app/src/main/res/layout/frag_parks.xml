@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="parksViewModel"
+            type="com.gilboot.easypark.driver.parks.ParksViewModel" />
+    </data>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/parkList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:padding="6dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:parkList="@{parksViewModel.parksLiveData}"
+        tools:listitem="@layout/park_item" />
+
+</layout>

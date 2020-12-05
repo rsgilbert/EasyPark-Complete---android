@@ -29,10 +29,17 @@ class MainActivity : AppCompatActivity() {
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         setSupportActionBar(binding.toolbar)
         drawerLayout = binding.drawerLayout
+
+        // set fragments that will be treated as home fragments, ie will have hamburger icons
+        // fragments that are not part of the appBarConfiguration will have a back icon
         appBarConfiguration =
             AppBarConfiguration(
                 setOf(
-                    R.id.signupFragment
+                    R.id.signupFragment,
+                    R.id.infoFragment,
+                    R.id.dashboardFragment,
+                    R.id.driverInfoFragment,
+                    R.id.parksFragment
                 ),
                 drawerLayout
             )
