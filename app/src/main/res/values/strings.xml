@@ -16,4 +16,8 @@
     <string name="vehicle">Vehicle</string>
     <string name="parkrate">Rate: %1d</string>
     <string name="parks">Parks</string>
+    <string name="password">Password</string>
+    <string name="drivers">Driver</string>
+    <string name="todo">TODO</string>
+    <string name="todo">TODO</string>
 </resources>
