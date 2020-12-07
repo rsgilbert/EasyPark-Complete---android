@@ -16,4 +16,6 @@
     <string name="vehicle">Vehicle</string>
     <string name="parkrate">Rate: %1d</string>
     <string name="parks">Parks</string>
+    <string name="login">Login</string>
+    <string name="preferences_filename">com.gilboot.EasyPark.MySharedPreferences</string>
 </resources>

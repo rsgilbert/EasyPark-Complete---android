@@ -12,7 +12,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.gilboot.easypark.data.User
+import com.gilboot.easypark.data.UserType
 import com.gilboot.easypark.databinding.ActivityMainBinding
+import com.gilboot.easypark.util.getUserFromPrefs
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -23,9 +26,11 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
 
+    lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding =
+        binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         setSupportActionBar(binding.toolbar)
         drawerLayout = binding.drawerLayout
@@ -43,12 +48,19 @@ class MainActivity : AppCompatActivity() {
                 ),
                 drawerLayout
             )
+
+
+
         navController = findNavController(R.id.myNavHostFragment)
 
 
 
         setupActionBar()
+
         connectDrawerToController(binding.navView)
+
+        checkLogin()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -81,3 +93,34 @@ private fun MainActivity.connectDrawerToController(navView: NavigationView) =
     NavigationUI.setupWithNavController(navView, navController)
 
 
+// check if a user is logged in and set appropriate drawer menu
+private fun MainActivity.checkLogin() {
+    val user: User? = getUserFromPrefs()
+    if (user != null) {
+        when (user.type) {
+            UserType.Driver -> setupDriverUI()
+            UserType.Park -> setupParkUI()
+        }
+    } else setupAuthUI()
+}
+
+private fun MainActivity.setupDriverUI() {
+    binding.navView.apply {
+        menu.clear()
+        inflateMenu(R.menu.driver_drawer_menu)
+    }
+}
+
+private fun MainActivity.setupParkUI() {
+    binding.navView.apply {
+        menu.clear()
+        inflateMenu(R.menu.park_drawer_menu)
+    }
+}
+
+private fun MainActivity.setupAuthUI() {
+    binding.navView.apply {
+        menu.clear()
+        inflateMenu(R.menu.auth_drawer_menu)
+    }
+}
