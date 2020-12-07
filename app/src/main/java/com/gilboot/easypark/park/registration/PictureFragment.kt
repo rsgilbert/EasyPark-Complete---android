@@ -78,7 +78,9 @@ class PictureFragment : Fragment() {
             }
 
             R.id.next -> {
-                navigateToLocationFragment()
+                if (parkViewModel.parkLiveData.value!!.pictures.isEmpty()) {
+                    toast("You must add atleast one picture")
+                } else navigateToLocationFragment()
             }
 
             else -> return super.onOptionsItemSelected(item)

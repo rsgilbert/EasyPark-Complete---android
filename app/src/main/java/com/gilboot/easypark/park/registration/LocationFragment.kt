@@ -6,7 +6,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.*
+import com.gilboot.easypark.data.User
+import com.gilboot.easypark.data.UserType
+import com.gilboot.easypark.util.saveUserToPrefs
 import org.jetbrains.anko.support.v4.toast
 
 
@@ -47,8 +51,18 @@ class LocationFragment : MapFragment() {
                 withCurrentLocation {
                     parkViewModel.setParkLoc(it.latitude, it.longitude)
                 }
-                parkViewModel.registerPark()
-                toast("Completed registration")
+                parkViewModel.registerPark {
+                    toast("Successfully registered park")
+
+                    // save user to shared prefs
+                    requireContext().saveUserToPrefs(
+                        User(
+                            UserType.Park,
+                            parkViewModel!!.parkLiveData.value!!.id
+                        )
+                    )
+                    navigateToDashboard()
+                }
             }
 
             else -> return super.onOptionsItemSelected(item)
@@ -57,22 +71,10 @@ class LocationFragment : MapFragment() {
         return true
     }
 
+}
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        setHasOptionsMenu(true)
-//        val binding =
-//            DataBindingUtil.inflate<FragLocationRegBinding>(
-//                inflater,
-//                R.layout.frag_location_reg,
-//                container,
-//                false
-//            )
-//
-//
-//        return binding.root
-//    }
+// navigate to DashboardFragment
+fun LocationFragment.navigateToDashboard() {
+    val action = LocationFragmentDirections.actionLocationFragmentToDashboardFragment()
+    findNavController().navigate(action)
 }

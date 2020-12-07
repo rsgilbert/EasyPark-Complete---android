@@ -44,7 +44,8 @@ class MainActivity : AppCompatActivity() {
                     R.id.infoFragment,
                     R.id.dashboardFragment,
                     R.id.driverInfoFragment,
-                    R.id.parksFragment
+                    R.id.parksFragment,
+                    R.id.loginFragment
                 ),
                 drawerLayout
             )
@@ -94,7 +95,7 @@ private fun MainActivity.connectDrawerToController(navView: NavigationView) =
 
 
 // check if a user is logged in and set appropriate drawer menu
-private fun MainActivity.checkLogin() {
+fun MainActivity.checkLogin() {
     val user: User? = getUserFromPrefs()
     if (user != null) {
         when (user.type) {

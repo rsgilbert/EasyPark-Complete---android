@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.gilboot.easypark.R
 import com.gilboot.easypark.data.User
 import com.google.gson.Gson
+import java.util.*
 
 
 fun flatLatLng(latitude: Double, longitude: Double) =
@@ -24,3 +25,12 @@ fun Context.saveUserToPrefs(user: User) =
     getSharedPrefs().edit().putString("user", user.toJson()).apply()
 
 fun Context.getUserFromPrefs(): User? = jsonToUser(getSharedPrefs().getString("user", ""))
+
+
+// remove user from shared preferences by setting user to empty string
+fun Context.removeUserFromPrefs() =
+    getSharedPrefs().edit().putString("user", "").apply()
+
+
+// simple function to generate id
+fun generateId(): String = Date().time.toString()

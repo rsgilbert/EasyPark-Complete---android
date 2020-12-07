@@ -3,6 +3,7 @@ package com.gilboot.easypark.park.registration
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gilboot.easypark.data.Park
+import com.gilboot.easypark.util.savePark
 import com.gilboot.easypark.util.uploadPicture
 import java.io.InputStream
 
@@ -39,8 +40,10 @@ fun ParkViewModel.addPicture(stream: InputStream, onError: (err: String) -> Unit
 }
 
 // register park
-fun ParkViewModel.registerPark() {
-
+fun ParkViewModel.registerPark(onSuccess: () -> Unit) {
+    savePark(parkLiveData.value!!) {
+        onSuccess()
+    }
 }
 
 

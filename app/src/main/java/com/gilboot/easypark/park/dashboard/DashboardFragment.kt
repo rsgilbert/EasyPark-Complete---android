@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.gilboot.easypark.MainActivity
 import com.gilboot.easypark.R
+import com.gilboot.easypark.checkLogin
 import com.gilboot.easypark.databinding.FragDashboardParkBinding
+import org.jetbrains.anko.support.v4.toast
 
 
 // Dashboard where the park records new vehicles
@@ -32,9 +35,11 @@ class DashboardFragment : Fragment() {
                 false
             )
 
+        recheckLogin()
         binding.dashboardViewModel = dashboardViewModel
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
+            visitList.adapter = DashboardAdapter(dashboardOnClickListener)
         }
 
 
@@ -45,3 +50,13 @@ class DashboardFragment : Fragment() {
 
 
 }
+
+fun Fragment.recheckLogin() {
+    (activity as MainActivity).checkLogin()
+}
+
+
+val DashboardFragment.dashboardOnClickListener: DashboardAdapter.OnClickListener
+    get() = DashboardAdapter.OnClickListener {
+        toast("visit is $it")
+    }

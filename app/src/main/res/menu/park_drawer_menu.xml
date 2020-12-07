@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/signupFragment"
-        android:title="@string/signup" />
+        android:title="@string/signout" />
 
 
 </menu>

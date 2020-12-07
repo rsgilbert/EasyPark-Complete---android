@@ -16,6 +16,7 @@ import org.jetbrains.anko.support.v4.longToast
 // operator at that park
 class InfoFragment : Fragment() {
     private val parkViewModel: ParkViewModel by viewModels()
+    lateinit var binding: FragInfoRegBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,7 +24,7 @@ class InfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        val binding =
+        binding =
             DataBindingUtil.inflate<FragInfoRegBinding>(
                 inflater,
                 R.layout.frag_info_reg,
@@ -40,17 +41,7 @@ class InfoFragment : Fragment() {
 //
         binding.apply {
             btnToPic.setOnClickListener {
-                when {
-                    editName.text.isBlank() ->
-                        longToast("Name cannot be blank")
 
-                    editTel.text.isBlank() ->
-                        longToast("${parkViewModel!!.parkLiveData!!.value}Telephone number cannot be blank")
-
-                    else -> {
-                        navigateToPictureFragment()
-                    }
-                }
             }
         }
 
@@ -65,7 +56,23 @@ class InfoFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.next -> {
-                navigateToPictureFragment()
+                binding.apply {
+                    when {
+                        editName.text.isBlank() ->
+                            longToast("Name cannot be blank")
+
+                        editTel.text.isBlank() ->
+                            longToast("Telephone number cannot be blank")
+
+                        else -> {
+                            parkViewModel!!.setParkInfo(
+                                editName.text.toString(),
+                                editTel.text.toString()
+                            )
+                            navigateToPictureFragment()
+                        }
+                    }
+                }
             }
             else -> return super.onOptionsItemSelected(item)
         }
