@@ -22,4 +22,8 @@
     <string name="password">Password</string>
     <string name="drivers">Driver</string>
     <string name="todo">TODO</string>
+    <string name="park">Park</string>
+    <string name="driver">Driver</string>
+    <string name="park_info">Park Information</string>
+    <string name="driver_info">Driver Information</string>
 </resources>

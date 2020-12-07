@@ -20,11 +20,14 @@
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.gilboot.easypark.park.registration.InfoFragment"
-        android:label="@string/info"
+        android:label="@string/park_info"
         tools:layout="@layout/frag_info_reg">
         <action
             android:id="@+id/action_infoFragment_to_pictureFragment"
             app:destination="@id/pictureFragment" />
+        <argument
+            android:name="park"
+            app:argType="com.gilboot.easypark.data.Park" />
     </fragment>
     <fragment
         android:id="@+id/pictureFragment"
@@ -54,11 +57,14 @@
     <fragment
         android:id="@+id/driverInfoFragment"
         android:name="com.gilboot.easypark.driver.registration.InfoFragment"
-        android:label="@string/info"
+        android:label="@string/driver_info"
         tools:layout="@layout/frag_info_driver_reg">
         <action
             android:id="@+id/action_driverInfoFragment_to_vehicleFragment"
             app:destination="@id/vehicleFragment" />
+        <argument
+            android:name="driver"
+            app:argType="com.gilboot.easypark.data.Driver" />
     </fragment>
     <fragment
         android:id="@+id/vehicleFragment"
@@ -95,9 +101,6 @@
             app:destination="@id/dashboardFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_loginFragment_to_infoFragment2"
-            app:destination="@id/infoFragment" />
     </fragment>
 
 </navigation>

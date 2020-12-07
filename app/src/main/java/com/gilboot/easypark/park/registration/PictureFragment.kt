@@ -7,19 +7,22 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.PICK_PHOTO_REQUEST_CODE
 import com.gilboot.easypark.PictureAdapter
 import com.gilboot.easypark.R
 import com.gilboot.easypark.databinding.FragPictureRegBinding
+import com.gilboot.easypark.util.isNetworkAvailable
+import org.jetbrains.anko.support.v4.longToast
 import org.jetbrains.anko.support.v4.toast
+import timber.log.Timber
 import java.io.FileNotFoundException
 import java.io.InputStream
 
 
 class PictureFragment : Fragment() {
-    private val parkViewModel: ParkViewModel by viewModels()
+    private val parkViewModel: ParkViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -35,6 +38,7 @@ class PictureFragment : Fragment() {
                 container,
                 false
             )
+
 
         binding.parkViewModel = parkViewModel
         binding.apply {
@@ -60,8 +64,14 @@ class PictureFragment : Fragment() {
                     val inputStream: InputStream? =
                         context?.contentResolver?.openInputStream(intent.data!!)
                     inputStream?.let { stream ->
-                        parkViewModel.addPicture(stream) { err: String ->
-                            toast(err)
+                        if (!requireContext().isNetworkAvailable()) {
+                            longToast("Network error")
+                        } else {
+                            toast("HEH")
+                            parkViewModel.addPicture(stream) { err: String ->
+                                toast(err)
+                                Timber.e("Encountered error")
+                            }
                         }
                     }
                 }

@@ -33,8 +33,8 @@ class LoginFragment : Fragment() {
             )
 
         binding.btnSignup.setOnClickListener {
-            val action = LoginFragmentDirections.actionLoginFragmentToInfoFragment2()
-            findNavController().navigate(action)
+//            val action = LoginFragmentDirections.actionLoginFragmentToInfoFragment2()
+//            findNavController().navigate(action)
         }
 
         navigateToCorrectFragment()

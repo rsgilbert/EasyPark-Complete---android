@@ -80,6 +80,8 @@ fun uploadPicture(
         .putStream(stream)
         .continueWithTask { task ->
             if (!task.isSuccessful) {
+
+                Timber.e("Task not successful: Error occurred")
                 onError("Failed to upload")
                 task.exception?.let {
                     throw it
@@ -90,6 +92,9 @@ fun uploadPicture(
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 onUpload(task.result.toString())
+            } else {
+                Timber.e("Error occurred")
+                onError("Error occurred")
             }
         }
 }

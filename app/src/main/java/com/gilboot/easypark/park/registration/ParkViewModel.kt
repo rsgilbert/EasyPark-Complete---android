@@ -9,7 +9,7 @@ import java.io.InputStream
 
 class ParkViewModel : ViewModel() {
 
-    val parkLiveData = MutableLiveData<Park>().apply { value = Park() }
+    val parkLiveData = MutableLiveData<Park>()
 
 
 }

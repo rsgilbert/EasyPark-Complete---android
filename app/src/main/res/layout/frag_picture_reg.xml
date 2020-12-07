@@ -31,15 +31,6 @@
             tools:listitem="@layout/picture_item" />
 
 
-        <Button
-            android:id="@+id/btn_to_loc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:text="@string/next"
-            android:textColor="@android:color/white"
-            android:textStyle="bold" />
 
 
     </LinearLayout>

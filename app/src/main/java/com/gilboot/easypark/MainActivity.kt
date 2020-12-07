@@ -41,9 +41,9 @@ class MainActivity : AppCompatActivity() {
             AppBarConfiguration(
                 setOf(
                     R.id.signupFragment,
-                    R.id.infoFragment,
+//                    R.id.infoFragment,
                     R.id.dashboardFragment,
-                    R.id.driverInfoFragment,
+//                    R.id.driverInfoFragment,
                     R.id.parksFragment,
                     R.id.loginFragment
                 ),
@@ -102,7 +102,9 @@ fun MainActivity.checkLogin() {
             UserType.Driver -> setupDriverUI()
             UserType.Park -> setupParkUI()
         }
-    } else setupAuthUI()
+    } else {
+        setupAuthUI()
+    }
 }
 
 private fun MainActivity.setupDriverUI() {

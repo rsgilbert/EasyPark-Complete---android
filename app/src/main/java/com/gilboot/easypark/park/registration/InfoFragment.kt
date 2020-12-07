@@ -5,17 +5,19 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.R
+import com.gilboot.easypark.data.Park
 import com.gilboot.easypark.databinding.FragInfoRegBinding
 import org.jetbrains.anko.support.v4.longToast
+import timber.log.Timber
 
 
 // Fragment for entering the name of the park and telephone of
 // operator at that park
 class InfoFragment : Fragment() {
-    private val parkViewModel: ParkViewModel by viewModels()
+    private val parkViewModel: ParkViewModel by activityViewModels()
     lateinit var binding: FragInfoRegBinding
 
     override fun onCreateView(
@@ -32,6 +34,10 @@ class InfoFragment : Fragment() {
                 false
             )
 
+        Timber.i("Data for park info is ${parkViewModel.parkLiveData.value}")
+
+        // set park to that which was passed in from sign up
+        parkViewModel.parkLiveData.value = parkInArgs
 
         binding.parkViewModel = parkViewModel
         binding.apply {
@@ -39,11 +45,7 @@ class InfoFragment : Fragment() {
 
         }
 //
-        binding.apply {
-            btnToPic.setOnClickListener {
 
-            }
-        }
 
 
         return binding.root
@@ -80,6 +82,10 @@ class InfoFragment : Fragment() {
         return true
     }
 }
+
+val InfoFragment.parkInArgs: Park
+    get() = InfoFragmentArgs.fromBundle(arguments!!).park
+
 
 fun InfoFragment.navigateToPictureFragment() {
     val action = InfoFragmentDirections.actionInfoFragmentToPictureFragment()

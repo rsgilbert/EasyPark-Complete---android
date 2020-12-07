@@ -5,7 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.*
 import com.gilboot.easypark.data.User
@@ -16,10 +16,12 @@ import org.jetbrains.anko.support.v4.toast
 
 // Set the location of the Park
 class LocationFragment : MapFragment() {
-    val parkViewModel: ParkViewModel by viewModels()
+    val parkViewModel: ParkViewModel by activityViewModels()
+
 
     override fun moreOnCreateView(view: View) {
         super.moreOnCreateView(view)
+
 
     }
 

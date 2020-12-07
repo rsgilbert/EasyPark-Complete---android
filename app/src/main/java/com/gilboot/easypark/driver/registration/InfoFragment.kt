@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.R
 import com.gilboot.easypark.databinding.FragInfoDriverRegBinding
@@ -14,7 +14,7 @@ import com.gilboot.easypark.databinding.FragInfoDriverRegBinding
 // Fragment for entering the name of the park and telephone of
 // operator at that park
 class InfoFragment : Fragment() {
-    private val driverViewModel: DriverViewModel by viewModels()
+    private val driverViewModel: DriverViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +31,7 @@ class InfoFragment : Fragment() {
             )
 
 
+        driverViewModel.driverLiveData.value = driverFromArgs
         binding.driverViewModel = driverViewModel
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
@@ -62,3 +63,6 @@ fun InfoFragment.navigateToVehicleFragment() {
     val action = InfoFragmentDirections.actionDriverInfoFragmentToVehicleFragment()
     findNavController().navigate(action)
 }
+
+val InfoFragment.driverFromArgs
+    get() = InfoFragmentArgs.fromBundle(arguments!!).driver
