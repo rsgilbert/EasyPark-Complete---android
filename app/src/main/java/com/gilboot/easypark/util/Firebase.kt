@@ -1,8 +1,10 @@
 package com.gilboot.easypark.util
 
+import com.gilboot.easypark.data.Park
 import com.gilboot.easypark.data.Vehicle
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -23,6 +25,14 @@ val vehicleCollection: CollectionReference = db.collection("vehicles")
 val parkCollection: CollectionReference = db.collection("parks")
 val visitCollection: CollectionReference = db.collection("visits")
 
+fun savePark(park: Park, onSuccess: () -> Unit) {
+    parkCollection.document(park.id)
+        .set(park, SetOptions.merge())
+        .addOnSuccessListener {
+            Timber.i("Saved park: $park")
+            onSuccess()
+        }
+}
 
 //val descendingJourneyListQuery: Query = journeyCollection.orderBy("id", Query.Direction.DESCENDING)
 

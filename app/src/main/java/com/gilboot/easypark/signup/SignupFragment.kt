@@ -17,6 +17,8 @@ class SignupFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragSignupBinding>(inflater, R.layout.frag_signup, container,
                 false)
 
+
+
         return binding.root
     }
 
