@@ -4,40 +4,77 @@
     <data>
 
     </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/spacing_normal"
-        android:paddingTop="24dp"
-        android:paddingBottom="@dimen/activity_vertical_margin">
-
-
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:layout_margin="@dimen/horizontal_margin"/>
         <EditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginTop="10dp"
-            android:cursorVisible="true"
-            android:drawablePadding="5dp"
+            android:layout_height="wrap_content"
             android:hint="@string/email"
+            android:layout_margin="@dimen/horizontal_margin"
             android:inputType="textEmailAddress"
-            android:padding="8dp"
-            android:textCursorDrawable="@null" />
+            android:autofillHints="" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            android:layout_margin="@dimen/horizontal_margin"/>
 
-        <Button
-            android:id="@+id/btn_signup"
+        <EditText
+            android:id="@+id/edit_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:text="@string/signup"
-            android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:autofillHints="@string/password"
+            android:layout_margin="@dimen/horizontal_margin" />
 
+        <!--        Image for the driver instructions-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <ImageView
+            android:src="@drawable/driver_work"
+            android:layout_width="50pt"
+            android:layout_weight="1"
+            android:layout_height="50pt"
+            android:id="@+id/driver_image"
+            android:contentDescription="@string/todo" />
 
+        <ImageView
+            android:src="@drawable/park"
+            android:layout_width="50pt"
+            android:layout_weight="1"
+            android:layout_height="50pt"
+            android:id="@+id/parker_image"
+            android:contentDescription="@string/todo" />
+
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:text="@string/drivers"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <CheckBox
+                android:text="@string/parks"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>
