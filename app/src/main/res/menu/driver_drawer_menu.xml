@@ -2,16 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/dashboardFragment"
-        android:title="@string/dashboard" />
-
-    <item
         android:id="@+id/parksFragment"
         android:title="@string/parks" />
 
 
+
     <item
-        android:id="@+id/signupFragment"
+        android:id="@+id/signoutFragment"
         android:title="@string/signout" />
 
 

@@ -1,8 +1,10 @@
 package com.gilboot.easypark.util
 
+import androidx.fragment.app.Fragment
 import com.gilboot.easypark.data.Driver
 import com.gilboot.easypark.data.Park
 import com.gilboot.easypark.data.Vehicle
+import com.gilboot.easypark.data.Visit
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -81,6 +83,30 @@ fun withAuthDriverSignup(email: String, password: String, lambda: (driver: Drive
         }
 }
 
+fun Fragment.withUpdateVisit(visitId: String, lambda: () -> Unit) {
+
+    visitCollection.document(visitId)
+        .update("complete", true, "end", Date().time)
+        .addOnCompleteListener {
+            lambda()
+        }
+}
+
+fun Fragment.withAddVisit(numberplate: String, lambda: (visit: Visit?) -> Unit) {
+    val visit = Visit(
+        parkId = requireContext().getUserFromPrefs()!!.id,
+        numberplate = numberplate,
+        start = Date().time
+    )
+    visitCollection
+        .document(visit.id)
+        .set(visit, SetOptions.merge())
+        .addOnSuccessListener {
+            lambda(visit)
+        }
+        .addOnFailureListener { lambda(null) }
+}
+
 fun withAuthParkSignup(park: Park, lambda: (park: Park?) -> Unit) {
     parkCollection
         .document(park.id)
@@ -129,12 +155,12 @@ val searchCollection: CollectionReference = db.collection("searches")
 //}
 //
 
-fun withVehicle(vehicleId: String, lambda: (vehicle: Vehicle) -> Unit) {
+fun withVehicle(vehicleId: String, lambda: (vehicle: Vehicle?) -> Unit) {
     vehicleCollection.document(vehicleId)
         .get()
         .addOnSuccessListener {
             Timber.i("Document is $it")
-            lambda(it.toObject()!!)
+            lambda(it.toObject())
         }
 }
 
@@ -165,23 +191,6 @@ fun uploadPicture(
             } else {
                 Timber.e("Error occurred")
                 onError("Error occurred")
-            }
-        }
-}
-
-fun uploadAudioFile(audioStream: InputStream, onUpload: (audioUrl: String) -> Unit) {
-    val uploadRef = storage.reference.child("audios").child(Date().time.toString())
-    uploadRef.putStream(audioStream)
-        .continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let { throw it }
-            }
-            uploadRef.downloadUrl
-        }
-        .addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                onUpload(task.result.toString())
-                Timber.i("download url is ${task.result}")
             }
         }
 }

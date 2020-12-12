@@ -9,7 +9,7 @@
 
         <variable
             name="dashboardViewModel"
-            type="com.gilboot.easypark.park.dashboard.DashboardViewModel" />
+            type="com.gilboot.easypark.dashboard.DashboardViewModel" />
     </data>
 
     <RelativeLayout

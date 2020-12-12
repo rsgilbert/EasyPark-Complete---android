@@ -52,7 +52,6 @@ fun DriverloginFragment.attemptLogin() {
         when (it) {
             null -> toast("Failed to login")
             else -> {
-                toast(it.toString())
                 requireContext().saveUserToPrefs(it.user)
                 navigateToParksFragment()
             }
@@ -65,6 +64,5 @@ fun DriverloginFragment.navigateToDriversignup() {
 }
 
 fun DriverloginFragment.navigateToParksFragment() {
-    val action = DriverloginFragmentDirections.actionDriverloginFragmentToParksFragment()
-    findNavController().navigate(action)
+    findNavController().navigate(DriverloginFragmentDirections.actionDriverloginFragmentToParksFragment())
 }

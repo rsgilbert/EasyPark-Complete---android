@@ -54,7 +54,6 @@ fun ParkloginFragment.attemptLogin() {
         when (it) {
             null -> toast("Failed to login")
             else -> {
-                toast(it.toString())
                 requireContext().saveUserToPrefs(it.user)
                 navigateToDashboard()
             }

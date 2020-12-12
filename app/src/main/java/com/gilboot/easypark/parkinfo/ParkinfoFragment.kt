@@ -78,12 +78,10 @@ fun ParkinfoFragment.attemptSignup() {
             lat = latLng.latitude,
             lng = latLng.longitude
         )
-        toast("latLng is ${latLng.latitude}, ${latLng.longitude}")
         withAuthParkSignup(park) {
             when (it) {
                 null -> toast("Failed to signup")
                 else -> {
-                    toast(it.toString())
                     requireContext().saveUserToPrefs(it.user)
                     navigateToDashboard()
                 }

@@ -63,7 +63,7 @@ fun DriversignupFragment.attemptsignup() {
 }
 
 fun DriversignupFragment.navigateToDriverlogin() {
-    findNavController().navigate(DriversignupFragmentDirections.actionDriversignupFragmentToDriverloginFragment())
+    findNavController().popBackStack()
 }
 
 fun DriversignupFragment.navigateToParksFragment() {

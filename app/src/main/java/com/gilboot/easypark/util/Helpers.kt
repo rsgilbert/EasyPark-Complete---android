@@ -3,6 +3,7 @@ package com.gilboot.easypark.util
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
+import androidx.fragment.app.Fragment
 import com.gilboot.easypark.R
 import com.gilboot.easypark.data.User
 import com.google.gson.Gson
@@ -29,6 +30,10 @@ fun Context.saveUserToPrefs(user: User) =
 
 fun Context.getUserFromPrefs(): User? = jsonToUser(getSharedPrefs().getString("user", null))
 
+fun Fragment.getUserFromPrefs() = requireContext().getUserFromPrefs()
+
+val Fragment.parkIdFromPrefs : String?
+get() = getUserFromPrefs()?.id
 
 // remove user from shared preferences by setting user to empty string
 fun Context.removeUserFromPrefs() =

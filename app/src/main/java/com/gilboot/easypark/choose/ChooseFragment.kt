@@ -8,10 +8,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.R
+import com.gilboot.easypark.data.User
+import com.gilboot.easypark.data.UserType
 import com.gilboot.easypark.databinding.FragChooseBinding
+import com.gilboot.easypark.util.getUserFromPrefs
+import org.jetbrains.anko.support.v4.toast
 
 
-// This is where we choose which fragment to go to, driver or park
+/**
+ * We choose which fragment to go to, driver or park
+ */
+
 class ChooseFragment : Fragment() {
 
     lateinit var binding: FragChooseBinding
@@ -21,9 +28,16 @@ class ChooseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
+
+        getUserFromPrefs()?.let {
+            when (it.type) {
+                UserType.Driver -> navigateToParks()
+                UserType.Park -> navigateToDashboard()
+            }
+        }
+
         binding =
-            DataBindingUtil.inflate<FragChooseBinding>(
+            DataBindingUtil.inflate(
                 inflater,
                 R.layout.frag_choose,
                 container,
@@ -44,4 +58,12 @@ fun ChooseFragment.navigateToDriverlogin() {
 
 fun ChooseFragment.navigateToParklogin() {
     findNavController().navigate(ChooseFragmentDirections.actionChooseFragmentToParkloginFragment())
+}
+
+fun ChooseFragment.navigateToParks() {
+    findNavController().navigate(ChooseFragmentDirections.actionChooseFragmentToParksFragment())
+}
+
+fun ChooseFragment.navigateToDashboard() {
+    findNavController().navigate(ChooseFragmentDirections.actionChooseFragmentToDashboardFragment())
 }

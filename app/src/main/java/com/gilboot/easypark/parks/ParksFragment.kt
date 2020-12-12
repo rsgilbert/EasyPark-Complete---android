@@ -1,4 +1,4 @@
-package com.gilboot.easypark.driver.parks
+package com.gilboot.easypark.parks
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.ParkAdapter
 import com.gilboot.easypark.R
+import com.gilboot.easypark.data.Park
 import com.gilboot.easypark.databinding.FragParksBinding
+import com.gilboot.easypark.setCorrectDrawerMenu
 import org.jetbrains.anko.support.v4.toast
 
 
@@ -32,6 +35,7 @@ class ParksFragment : Fragment() {
                 false
             )
 
+        setCorrectDrawerMenu()
 
         binding.parksViewModel = parksViewModel
         binding.apply {
@@ -47,5 +51,9 @@ class ParksFragment : Fragment() {
 
 val ParksFragment.parkOnClickListener: ParkAdapter.OnClickListener
     get() = ParkAdapter.OnClickListener {
-        toast("Link is $it")
+        navigateToParklocation(it)
     }
+
+fun ParksFragment.navigateToParklocation(park: Park) {
+    findNavController().navigate(ParksFragmentDirections.actionParksFragmentToParklocationFragment(park))
+}

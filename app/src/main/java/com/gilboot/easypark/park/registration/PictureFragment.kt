@@ -101,8 +101,8 @@ class PictureFragment : Fragment() {
 }
 
 fun PictureFragment.navigateToLocationFragment() {
-    val action = PictureFragmentDirections.actionPictureFragmentToLocationFragment()
-    findNavController().navigate(action)
+//    val action = PictureFragmentDirections.actionPictureFragmentToLocationFragment()
+//    findNavController().navigate(action)
 }
 
 

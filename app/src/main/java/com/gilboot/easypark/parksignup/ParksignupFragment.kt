@@ -53,7 +53,7 @@ fun ParksignupFragment.navigateToParklogin() {
 
 
 fun ParksignupFragment.navigateToParkinfo() {
-    val park = Park(binding.editEmail.text.toString(), binding.editPassword.text.toString())
+    val park = Park(email=binding.editEmail.text.toString(), password = binding.editPassword.text.toString())
     findNavController().navigate(
         ParksignupFragmentDirections.actionParksignupFragmentToParkinfoFragment(
             park

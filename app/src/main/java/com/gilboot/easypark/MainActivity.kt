@@ -1,11 +1,13 @@
 package com.gilboot.easypark
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,7 +18,9 @@ import com.gilboot.easypark.data.User
 import com.gilboot.easypark.data.UserType
 import com.gilboot.easypark.databinding.ActivityMainBinding
 import com.gilboot.easypark.util.getUserFromPrefs
+import com.gilboot.easypark.util.removeUserFromPrefs
 import com.google.android.material.navigation.NavigationView
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
     lateinit var drawerLayout: DrawerLayout
@@ -41,12 +45,10 @@ class MainActivity : AppCompatActivity() {
             AppBarConfiguration(
                 setOf(
                     R.id.chooseFragment,
-                    R.id.signupFragment,
 //                    R.id.infoFragment,
                     R.id.dashboardFragment,
 //                    R.id.driverInfoFragment,
-                    R.id.parksFragment,
-                    R.id.loginFragment
+                    R.id.parksFragment
                 ),
                 drawerLayout
             )
@@ -54,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
 
         navController = findNavController(R.id.myNavHostFragment)
+
 
 
 
@@ -96,7 +99,7 @@ private fun MainActivity.connectDrawerToController(navView: NavigationView) =
 
 
 // check if a user is logged in and set appropriate drawer menu
-fun MainActivity.checkLogin() {
+fun MainActivity.setCorrectDrawerMenu() {
     val user: User? = getUserFromPrefs()
     if (user != null) {
         when (user.type) {
@@ -107,6 +110,11 @@ fun MainActivity.checkLogin() {
         setupAuthUI()
     }
 }
+
+fun Fragment.setCorrectDrawerMenu() {
+    (activity as MainActivity).setCorrectDrawerMenu()
+}
+
 
 private fun MainActivity.setupDriverUI() {
     binding.navView.apply {
@@ -127,4 +135,8 @@ private fun MainActivity.setupAuthUI() {
         menu.clear()
         inflateMenu(R.menu.auth_drawer_menu)
     }
+}
+
+fun Context.signout() {
+    removeUserFromPrefs()
 }

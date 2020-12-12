@@ -1,4 +1,4 @@
-package com.gilboot.easypark.park.dashboard
+package com.gilboot.easypark.dashboard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
