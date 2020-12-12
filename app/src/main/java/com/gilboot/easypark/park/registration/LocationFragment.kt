@@ -8,8 +8,6 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.*
-import com.gilboot.easypark.data.User
-import com.gilboot.easypark.data.UserType
 import com.gilboot.easypark.util.saveUserToPrefs
 import org.jetbrains.anko.support.v4.toast
 
@@ -58,10 +56,7 @@ class LocationFragment : MapFragment() {
 
                     // save user to shared prefs
                     requireContext().saveUserToPrefs(
-                        User(
-                            UserType.Park,
-                            parkViewModel!!.parkLiveData.value!!.id
-                        )
+                        parkViewModel!!.parkLiveData.value!!.user
                     )
                     navigateToDashboard()
                 }

@@ -1,5 +1,6 @@
 package com.gilboot.easypark.util
 
+import com.gilboot.easypark.data.Driver
 import com.gilboot.easypark.data.Park
 import com.gilboot.easypark.data.Vehicle
 import com.google.firebase.firestore.CollectionReference
@@ -7,6 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -24,12 +26,80 @@ val userCollection: CollectionReference = db.collection("users")
 val vehicleCollection: CollectionReference = db.collection("vehicles")
 val parkCollection: CollectionReference = db.collection("parks")
 val visitCollection: CollectionReference = db.collection("visits")
+val driverCollection: CollectionReference = db.collection("drivers")
 
 fun savePark(park: Park, onSuccess: () -> Unit) {
     parkCollection.document(park.id)
         .set(park, SetOptions.merge())
         .addOnSuccessListener {
             Timber.i("Saved park: $park")
+            onSuccess()
+        }
+}
+
+
+fun withAuthPark(email: String, password: String, lambda: (park: Park?) -> Unit) {
+    parkCollection
+        .whereEqualTo("email", email)
+        .whereEqualTo("password", password)
+        .get()
+        .addOnCompleteListener {
+            Timber.i("AuthPark: ${it.result}")
+            val parks: List<Park> = it.result.toObjects()
+            Timber.i("Auth parks got: $parks")
+            if (parks.isNotEmpty()) {
+                lambda(parks.first())
+            } else lambda(null)
+        }
+}
+
+fun withAuthDriver(email: String, password: String, lambda: (driver: Driver?) -> Unit) {
+    driverCollection
+        .whereEqualTo("email", email)
+        .whereEqualTo("password", password)
+        .get()
+        .addOnCompleteListener {
+            Timber.i("AuthPark: ${it.result}")
+            val drivers: List<Driver> = it.result.toObjects()
+            Timber.i("Auth parks got: $drivers")
+            if (drivers.isNotEmpty()) {
+                lambda(drivers.first())
+            } else lambda(null)
+        }
+}
+
+fun withAuthDriverSignup(email: String, password: String, lambda: (driver: Driver?) -> Unit) {
+    val driver = Driver(email = email, password = password)
+    driverCollection
+        .document(driver.id)
+        .set(driver, SetOptions.merge())
+        .addOnSuccessListener {
+            lambda(driver)
+        }
+        .addOnFailureListener {
+            lambda(null)
+        }
+}
+
+fun withAuthParkSignup(park: Park, lambda: (park: Park?) -> Unit) {
+    parkCollection
+        .document(park.id)
+        .set(park, SetOptions.merge())
+        .addOnSuccessListener {
+            Timber.i("Saved park: $park")
+            lambda(park)
+        }
+        .addOnFailureListener {
+            lambda(null)
+        }
+}
+
+
+fun saveDriver(driver: Driver, onSuccess: () -> Unit) {
+    driverCollection.document(driver.id)
+        .set(driver, SetOptions.merge())
+        .addOnSuccessListener {
+            Timber.i("Saved driver: $driver")
             onSuccess()
         }
 }

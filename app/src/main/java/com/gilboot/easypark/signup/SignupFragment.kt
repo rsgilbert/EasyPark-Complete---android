@@ -44,7 +44,7 @@ class SignupFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.sign_up, menu)
+        inflater.inflate(R.menu.sign_up_options_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

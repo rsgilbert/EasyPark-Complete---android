@@ -26,4 +26,15 @@
     <string name="driver">Driver</string>
     <string name="park_info">Park Information</string>
     <string name="driver_info">Driver Information</string>
+    <string name="choose">Choose</string>
+    <string name="submit">Submit</string>
+    <string name="driverlogin">Driver Login</string>
+    <string name="create_account">Create account</string>
+    <string name="parklogin">Park Login</string>
+    <string name="driversignup">Driver Signup</string>
+    <string name="parkname">Park Name</string>
+    <string name="parksignup">Park Signup</string>
+    <string name="register">Register</string>
+    <string name="register_park">Register Park</string>
+    <string name="park_register_notice">Make sure you are inside your park before registering it so we can pick its location</string>
 </resources>

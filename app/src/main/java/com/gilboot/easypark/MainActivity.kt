@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration =
             AppBarConfiguration(
                 setOf(
+                    R.id.chooseFragment,
                     R.id.signupFragment,
 //                    R.id.infoFragment,
                     R.id.dashboardFragment,
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         connectDrawerToController(binding.navView)
 
-        checkLogin()
+//        checkLogin()
 
     }
 

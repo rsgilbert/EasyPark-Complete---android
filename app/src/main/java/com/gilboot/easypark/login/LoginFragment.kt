@@ -1,9 +1,7 @@
 package com.gilboot.easypark.login
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -18,13 +16,15 @@ import com.gilboot.easypark.util.getUserFromPrefs
 // this is where a user logs in from
 class LoginFragment : Fragment() {
 
+    lateinit var binding: FragLoginBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        val binding =
+        binding =
             DataBindingUtil.inflate<FragLoginBinding>(
                 inflater,
                 R.layout.frag_login,
@@ -32,18 +32,24 @@ class LoginFragment : Fragment() {
                 false
             )
 
-        binding.btnSignup.setOnClickListener {
-//            val action = LoginFragmentDirections.actionLoginFragmentToInfoFragment2()
-//            findNavController().navigate(action)
+        navigateToCorrectFragment()
+        return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.login_options_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.login -> {
+                attemptLogin()
+                navigateToCorrectFragment()
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
 
-        navigateToCorrectFragment()
-
-
-
-
-
-        return binding.root
+        return true
     }
 }
 
@@ -57,6 +63,14 @@ fun LoginFragment.navigateToCorrectFragment() {
             UserType.Park -> navigateToDashboard()
         }
     }
+}
+
+fun LoginFragment.attemptLogin() {
+    if (binding.driverCheckbox.isChecked) {
+        // login driver
+
+    }
+
 }
 
 fun LoginFragment.navigateToParks() {

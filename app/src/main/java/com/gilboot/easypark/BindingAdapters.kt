@@ -17,7 +17,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 @BindingAdapter("park")
 fun RecyclerView.bindPark(park: Park?) {
     park?.let {
-        (adapter as PictureAdapter).submitList(it.pictures)
+//        (adapter as PictureAdapter).submitList(it.pictures)
     }
 }
 
