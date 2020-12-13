@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <variable
+            name="signupViewModel"
+            type="com.gilboot.easypark.signup.SignupViewModel" />
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_vertical"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
@@ -42,21 +48,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <ImageView
-            android:src="@drawable/driver_work"
-            android:layout_width="50pt"
-            android:layout_weight="1"
-            android:layout_height="50pt"
-            android:id="@+id/driver_image"
-            android:contentDescription="@string/todo" />
 
-        <ImageView
-            android:src="@drawable/park"
-            android:layout_width="50pt"
-            android:layout_weight="1"
-            android:layout_height="50pt"
-            android:id="@+id/parker_image"
-            android:contentDescription="@string/todo" />
+            <ImageView
+                android:id="@+id/driver_image"
+                android:onClick="@{() -> signupViewModel.setToDriver() }"
+                android:layout_width="50pt"
+                android:layout_weight="1"
+                android:layout_height="50pt"
+                app:srcCompat="@drawable/driver_work"
+                android:contentDescription="@string/todo" />
+
+            <ImageView
+                android:id="@+id/parker_image"
+                android:onClick="@{() -> signupViewModel.setToPark() }"
+                android:layout_width="50pt"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/park"
+                android:layout_height="50pt"
+                android:contentDescription="@string/todo" />
 
     </LinearLayout>
         <LinearLayout
@@ -65,16 +74,22 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:text="@string/drivers"
+                android:id="@+id/driver_checkbox"
+                android:checked="@{signupViewModel.isParkLiveData  ? false : true }"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+                android:onClick="@{() -> signupViewModel.setToDriver() }"
+                android:text="@string/driver"
+                android:layout_height="wrap_content" />
 
             <CheckBox
-                android:text="@string/parks"
+                android:id="@+id/park_checkbox"
+                android:checked="@{signupViewModel.isParkLiveData  ? true : false }"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:onClick="@{() -> signupViewModel.setToPark() }"
+                android:text="@string/park"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 </layout>

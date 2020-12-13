@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -17,14 +16,12 @@
         android:paddingLeft="16sp"
         android:paddingRight="16sp">
 
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/picture"
             android:layout_width="66dp"
             android:layout_height="66dp"
             android:layout_gravity="center"
-            android:src="@mipmap/ic_launcher"
-            app:imageUrl="@{park.displayPicture}" />
+            android:src="@drawable/ic_park" />
 
 
         <LinearLayout
@@ -47,15 +44,15 @@
                 android:textSize="16sp"
                 tools:text="Salaama Park" />
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/rate"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_gravity="top"-->
-            <!--                android:text="@{@string/parkrate(park.rate)}"-->
-            <!--                android:textColor="@android:color/primary_text_light"-->
-            <!--                android:textSize="16sp"-->
-            <!--                tools:text="Rate: 2000 per hour" />-->
+            <TextView
+                android:id="@+id/tel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:text="@{park.tel}"
+                android:textColor="@android:color/primary_text_light"
+                android:textSize="16sp"
+                tools:text="077" />
         </LinearLayout>
 
     </LinearLayout>

@@ -4,13 +4,14 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gilboot.easypark.ParkAdapter
-import com.gilboot.easypark.bindImage
 import com.gilboot.easypark.data.Park
 import com.gilboot.easypark.data.Vehicle
 import com.gilboot.easypark.data.Visit
-import com.gilboot.easypark.park.dashboard.DashboardAdapter
+import com.gilboot.easypark.dashboard.DashboardAdapter
+import com.gilboot.easypark.util.timeSpent
 import com.gilboot.easypark.util.withVehicle
 import de.hdodenhof.circleimageview.CircleImageView
+import java.util.*
 
 @BindingAdapter("dashboardList")
 fun RecyclerView.bindDashboardList(visits: List<Visit>?) {
@@ -31,8 +32,7 @@ fun RecyclerView.bindParkList(parks: List<Park>?) {
 @BindingAdapter("setDuration")
 fun TextView.bindDuration(nullableVisit: Visit?) {
     nullableVisit?.let { visit ->
-        val diff = visit.end - visit.start
-        text = diff.toString()
+        text = timeSpent(visit.start, Date().time)
     }
 }
 
@@ -40,7 +40,7 @@ fun TextView.bindDuration(nullableVisit: Visit?) {
 fun TextView.bindPlateNo(vehicleId: String?) {
     vehicleId?.let { veh ->
         withVehicle(veh) {
-            text = it.numberplate
+            text = it?.numberplate
         }
     }
 }
@@ -48,15 +48,15 @@ fun TextView.bindPlateNo(vehicleId: String?) {
 @BindingAdapter("setVehicleDP")
 fun CircleImageView.bindVehicleDP(vehicleId: String?) {
     vehicleId?.let { veh ->
-        withVehicle(veh) {
-            bindImage(it.displayPicture)
-        }
+//        withVehicle(veh) {
+//            bindImage(it.displayPicture)
+//        }
     }
 }
 
 @BindingAdapter("setVehicleDP")
 fun CircleImageView.bindVehicleDP(vehicle: Vehicle?) {
     vehicle?.let { veh ->
-        bindImage(veh.displayPicture)
+//        bindImage(veh.displayPicture)
     }
 }

@@ -7,7 +7,7 @@
 
         <variable
             name="parksViewModel"
-            type="com.gilboot.easypark.driver.parks.ParksViewModel" />
+            type="com.gilboot.easypark.parks.ParksViewModel" />
     </data>
 
 
@@ -15,6 +15,7 @@
         android:id="@+id/parkList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:addDivider="@{true}"
         android:clipToPadding="false"
         android:padding="6dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

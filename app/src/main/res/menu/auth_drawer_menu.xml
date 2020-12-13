@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/loginFragment"
-        android:title="@string/login" />
 
     <item
-        android:id="@+id/signupFragment"
-        android:title="@string/signup" />
+        android:id="@+id/driverloginFragment"
+        android:title="Driver Login" />
+
+    <item
+        android:id="@+id/driversignupFragment"
+        android:title="Driver Signup"/>
+
+    <item
+        android:id="@+id/parkloginFragment"
+        android:title="Park Login" />
+
+    <item
+        android:id="@+id/parksignupFragment"
+        android:title="Park Signup" />
 
 
 </menu>

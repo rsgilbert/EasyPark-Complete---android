@@ -1,4 +1,4 @@
-package com.gilboot.easypark.driver.parks
+package com.gilboot.easypark.parks
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +17,6 @@ class ParksViewModel : ViewModel() {
         setParks()
     }
 
-
 }
 
 fun ParksViewModel.setParks() {
@@ -26,6 +25,7 @@ fun ParksViewModel.setParks() {
             Timber.e("Error listening to park collection")
             return@addSnapshotListener
         }
-        parksLiveData.value = snapshot?.toObjects()
+        val parks: List<Park> = snapshot?.toObjects() ?: emptyList()
+        parksLiveData.value = parks.sortedByDescending { it.id }
     }
 }

@@ -1,28 +1,17 @@
 package com.gilboot.easypark.util
 
-import android.util.Log
-import com.google.firebase.database.*
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
 import java.security.SecureRandom
-import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
-import kotlin.collections.HashMap
 
 //val database: FirebaseFirestore = Firebase.firestore
 //val storage1: FirebaseStorage = Firebase.storage
 //val userCollections: CollectionReference = database.collection("users")
-private lateinit var database: FirebaseDatabase
-private lateinit var reference: DatabaseReference
+//private lateinit var database: FirebaseDatabase
+//private lateinit var reference: DatabaseReference
 
 /**
  * Note: For the password, most of these functions work with a CharArray instead of String objects.
@@ -98,6 +87,8 @@ fun encryption_method(str_password: String, salt: ByteArray, iv: ByteArray):Stri
 /**
  * Creating a method that reads the encrypted password from firebase
  */
+/*
+Commented out for now due to firebase issues associated with the code
 fun getUserInfo(str_username: String): HashMap<String,Any>{
     var map = HashMap<String,Any>()
     val rootref = FirebaseDatabase.getInstance().reference
@@ -149,7 +140,7 @@ fun compare_passwords(username:String, pwd:String): Boolean{
 
     return false
 }
-
+*/
 /**
  * First fetch data from the firebase using the above method
  * Decrypting the required password using the same methods as in encryption process.

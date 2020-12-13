@@ -9,7 +9,7 @@ import java.io.InputStream
 
 class ParkViewModel : ViewModel() {
 
-    val parkLiveData = MutableLiveData<Park>().apply { value = Park() }
+    val parkLiveData = MutableLiveData<Park>()
 
 
 }
@@ -23,19 +23,19 @@ fun ParkViewModel.setParkLoc(lat: Double, lng: Double) {
 }
 
 fun ParkViewModel.setParkDP(picture: String) {
-    parkLiveData.value = parkLiveData.value!!.copy(displayPicture = picture)
+//    parkLiveData.value = parkLiveData.value!!.copy(displayPicture = picture)
 }
 
 fun ParkViewModel.setParkPics(pictures: List<String>) {
-    parkLiveData.value = parkLiveData.value!!.copy(pictures = pictures)
+//    parkLiveData.value = parkLiveData.value!!.copy(pictures = pictures)
 }
 
 
 fun ParkViewModel.addPicture(stream: InputStream, onError: (err: String) -> Unit) {
     uploadPicture(stream, { pictureUrl ->
-        parkLiveData.value = parkLiveData.value?.let {
-            it.copy(pictures = it.pictures + pictureUrl)
-        }
+//        parkLiveData.value = parkLiveData.value?.let {
+//            it.copy(pictures = it.pictures + pictureUrl)
+//        }
     }, onError)
 }
 

@@ -8,6 +8,6 @@ enum class UserType { Driver, Park }
 
 @Parcelize
 data class User(
-    val type: UserType = UserType.Driver,
-    val userId: String = ""
+    val id: String = "",
+    val type: UserType = UserType.Driver
 ) : Parcelable
