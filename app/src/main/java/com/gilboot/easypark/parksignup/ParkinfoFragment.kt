@@ -1,6 +1,8 @@
-package com.gilboot.easypark.parkinfo
+package com.gilboot.easypark.parksignup
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -11,12 +13,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.gilboot.easypark.PICK_PHOTO_REQUEST_CODE
 import com.gilboot.easypark.R
-import com.gilboot.easypark.data.Park
 import com.gilboot.easypark.databinding.FragParkinfoBinding
-import com.gilboot.easypark.util.saveUserToPrefs
-import com.gilboot.easypark.util.withAuthParkSignup
+import com.gilboot.easypark.util.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
 import com.google.android.gms.maps.model.LatLng
@@ -24,11 +27,18 @@ import com.google.android.gms.tasks.Task
 import org.jetbrains.anko.support.v4.longToast
 import org.jetbrains.anko.support.v4.toast
 import timber.log.Timber
+import java.io.InputStream
+import androidx.lifecycle.observe
 
 
 class ParkinfoFragment : Fragment() {
-
+    val parkinfoViewModel: ParkinfoViewModel by activityViewModels {
+        ParkinfoViewModelFactory(
+            repository
+        )
+    }
     lateinit var binding: FragParkinfoBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,10 +54,50 @@ class ParkinfoFragment : Fragment() {
                 false
             )
 
+        binding.parkinfoViewModel = parkinfoViewModel
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+
+        }
+
+        parkinfoViewModel.navigateToDashboardLiveData.observe(
+            viewLifecycleOwner,
+            Observer { navigate ->
+                navigate?.let {
+                    navigateToDashboard()
+                    parkinfoViewModel.navigateToDashboardComplete()
+                }
+            })
+
+        binding.picture.setOnClickListener { startImagePicker() }
         binding.buttonSignup.setOnClickListener { attemptSignup() }
 
         return binding.root
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_PHOTO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            try {
+                data?.let { intent ->
+                    val inputStream: InputStream? =
+                        context?.contentResolver?.openInputStream(intent.data!!)
+                    inputStream?.let { stream ->
+                        if (!requireContext().isNetworkAvailable()) {
+                            longToast("Network error")
+                        } else {
+                            toast("Adding picture")
+                            parkinfoViewModel.setPicture(stream)
+
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -67,23 +117,21 @@ class ParkinfoFragment : Fragment() {
 
 }
 
-val ParkinfoFragment.parkInArgs: Park
-    get() = ParkinfoFragmentArgs.fromBundle(arguments!!).park
 
 fun ParkinfoFragment.attemptSignup() {
     withCurrentLocation { latLng ->
-        val park = parkInArgs.copy(
-            name = binding.editParkname.text.toString(),
-            tel = binding.editTel.text.toString(),
-            lat = latLng.latitude,
-            lng = latLng.longitude
-        )
-        withAuthParkSignup(park) {
-            when (it) {
-                null -> toast("Failed to signup")
-                else -> {
-                    requireContext().saveUserToPrefs(it.user)
-                    navigateToDashboard()
+        parkinfoViewModel.apply {
+            setLatLng(latLng)
+            binding.apply {
+                when {
+                    !editParkname.isValidInput() -> toast("Park name can not be blank")
+                    !editCapacity.isValidInput() -> toast("Capacity can not be blank")
+                    pictureLiveData.value.isNullOrBlank() -> toast("Picture is not set")
+                    else -> {
+                        setName(editParkname.textValue())
+                        setCapacity(editCapacity.textValue().toInt())
+                        signup()
+                    }
                 }
             }
         }
@@ -147,6 +195,13 @@ fun Fragment.withCurrentLocation(lambda: (latLng: LatLng) -> Unit) {
 fun ParkinfoFragment.onRequestPermissionsGranted() {
     attemptSignup()
 }
+
+fun ParkinfoFragment.startImagePicker() {
+    val intent = Intent(Intent.ACTION_GET_CONTENT)
+    intent.type = "image/*"
+    startActivityForResult(intent, PICK_PHOTO_REQUEST_CODE)
+}
+
 
 // Constants
 const val LOCATION_REQUEST_CODE = 101

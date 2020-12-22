@@ -4,12 +4,11 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gilboot.easypark.ParkAdapter
-import com.gilboot.easypark.data.Park
-import com.gilboot.easypark.data.Vehicle
-import com.gilboot.easypark.data.Visit
+import com.gilboot.easypark.model.Park
+import com.gilboot.easypark.model.Vehicle
+import com.gilboot.easypark.model.Visit
 import com.gilboot.easypark.dashboard.DashboardAdapter
 import com.gilboot.easypark.util.timeSpent
-import com.gilboot.easypark.util.withVehicle
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
@@ -39,9 +38,9 @@ fun TextView.bindDuration(nullableVisit: Visit?) {
 @BindingAdapter("setPlateNo")
 fun TextView.bindPlateNo(vehicleId: String?) {
     vehicleId?.let { veh ->
-        withVehicle(veh) {
-            text = it?.numberplate
-        }
+//        withVehicle(veh) {
+//            text = it?.numberplate
+//        }
     }
 }
 

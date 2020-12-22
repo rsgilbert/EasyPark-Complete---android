@@ -2,7 +2,7 @@ package com.gilboot.easypark.parks
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gilboot.easypark.data.Park
+import com.gilboot.easypark.model.Park
 import com.gilboot.easypark.util.parkCollection
 import com.google.firebase.firestore.ktx.toObjects
 import timber.log.Timber
@@ -26,6 +26,6 @@ fun ParksViewModel.setParks() {
             return@addSnapshotListener
         }
         val parks: List<Park> = snapshot?.toObjects() ?: emptyList()
-        parksLiveData.value = parks.sortedByDescending { it.id }
+//        parksLiveData.value = parks.sortedByDescending { it.id }
     }
 }

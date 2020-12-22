@@ -8,11 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.R
-import com.gilboot.easypark.data.User
-import com.gilboot.easypark.data.UserType
+import com.gilboot.easypark.model.UserType
 import com.gilboot.easypark.databinding.FragChooseBinding
 import com.gilboot.easypark.util.getUserFromPrefs
-import org.jetbrains.anko.support.v4.toast
 
 
 /**

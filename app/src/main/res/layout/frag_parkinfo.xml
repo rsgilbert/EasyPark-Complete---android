@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <variable
+            name="parkinfoViewModel"
+            type="com.gilboot.easypark.parksignup.ParkinfoViewModel" />
     </data>
 
     <ScrollView
@@ -24,6 +28,15 @@
                 android:textAlignment="center"
                 android:textColor="#1A1818" />
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/picture"
+                android:layout_width="106dp"
+                android:layout_height="106dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/spacing_normal"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:src="@drawable/add_picture"
+                app:imageUrl="@{parkinfoViewModel.pictureLiveData}" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -37,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/horizontal_margin"
                 android:autofillHints="@string/parkname"
+                android:text="@{parkinfoViewModel.nameLiveData}"
                 android:hint="@string/parkname"
                 android:inputType="textCapWords" />
 
@@ -44,16 +58,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/horizontal_margin"
-                android:text="@string/tel" />
+                android:text="@string/capacity" />
 
             <EditText
-                android:id="@+id/edit_tel"
+                android:id="@+id/edit_capacity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/horizontal_margin"
-                android:autofillHints="@string/tel"
-                android:hint="@string/tel"
-                android:inputType="phone" />
+                android:autofillHints="@string/parkname"
+                android:hint="@string/capacity"
+                android:inputType="number"
+                android:text="@{String.valueOf(parkinfoViewModel.capacityLiveData)}" />
 
             <Button
                 android:id="@+id/button_signup"

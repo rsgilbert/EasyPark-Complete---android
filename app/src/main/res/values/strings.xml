@@ -41,4 +41,5 @@
     <string name="add">Add</string>
     <string name="visit">Visit</string>
     <string name="parklocation">Park Location</string>
+    <string name="capacity">Capacity</string>
 </resources>

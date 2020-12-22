@@ -23,6 +23,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+//    buildFeatures.databinding {
+//        enabled = true
+//    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -31,8 +35,12 @@ android {
     }
 
     // enable databinding
-    dataBinding {
-        enabled = true
+    buildFeatures {
+
+        dataBinding = true
+
+        // for view binding:
+         viewBinding = true
     }
 
     compileOptions {
@@ -72,8 +80,15 @@ dependencies {
     implementation "androidx.core:core-ktx:$version_core"
 
     // retrofit
-//    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
-//    implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
+    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+    implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
+
+    // Room
+    implementation "androidx.room:room-common:$version_room"
+    implementation "androidx.room:room-runtime:$version_room"
+    implementation "androidx.room:room-ktx:$version_room"
+    kapt "androidx.room:room-compiler:$version_room" // For Kotlin use kapt instead of annotationProcessor
+
 //
     // coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines"

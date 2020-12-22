@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/parkinfoFragment"
-        android:name="com.gilboot.easypark.parkinfo.ParkinfoFragment"
+        android:name="com.gilboot.easypark.parksignup.ParkinfoFragment"
         android:label="ParkinfoFragment"
         tools:layout="@layout/frag_parkinfo">
         <action
@@ -85,9 +85,6 @@
             app:destination="@id/dashboardFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
-        <argument
-            android:name="park"
-            app:argType="com.gilboot.easypark.data.Park" />
     </fragment>
     <fragment
         android:id="@+id/visitFragment"
@@ -132,7 +129,7 @@
         tools:layout="@layout/fragment_map">
         <argument
             android:name="park"
-            app:argType="com.gilboot.easypark.data.Park" />
+            app:argType="com.gilboot.easypark.model.Park" />
     </fragment>
     <fragment
         android:id="@+id/signoutFragment"

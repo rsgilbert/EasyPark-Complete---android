@@ -14,13 +14,12 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.gilboot.easypark.data.User
-import com.gilboot.easypark.data.UserType
+import com.gilboot.easypark.model.User
+import com.gilboot.easypark.model.UserType
 import com.gilboot.easypark.databinding.ActivityMainBinding
 import com.gilboot.easypark.util.getUserFromPrefs
 import com.gilboot.easypark.util.removeUserFromPrefs
 import com.google.android.material.navigation.NavigationView
-import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
     lateinit var drawerLayout: DrawerLayout

@@ -1,6 +1,7 @@
-package com.gilboot.easypark.data
+package com.gilboot.easypark.model
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import com.gilboot.easypark.util.generateId
 import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
@@ -8,10 +9,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Driver(
-    val id: String = generateId(),
-    val email: String = "",
-    val password: String = ""
+
+    val _id: String,
+    val email: String,
+    val password: String
 ) : Parcelable {
     @IgnoredOnParcel
-    val user: User = User(id, UserType.Driver)
+    val user: User = User(_id, UserType.Driver)
 }

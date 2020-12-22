@@ -10,10 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.ParkAdapter
 import com.gilboot.easypark.R
-import com.gilboot.easypark.data.Park
+import com.gilboot.easypark.model.Park
 import com.gilboot.easypark.databinding.FragParksBinding
 import com.gilboot.easypark.setCorrectDrawerMenu
-import org.jetbrains.anko.support.v4.toast
 
 
 // Fragment to show nearby parks
@@ -55,5 +54,5 @@ val ParksFragment.parkOnClickListener: ParkAdapter.OnClickListener
     }
 
 fun ParksFragment.navigateToParklocation(park: Park) {
-    findNavController().navigate(ParksFragmentDirections.actionParksFragmentToParklocationFragment(park))
+//    findNavController().navigate(ParksFragmentDirections.actionParksFragmentToParklocationFragment(park))
 }

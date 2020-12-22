@@ -1,4 +1,4 @@
-package com.gilboot.easypark.data
+package com.gilboot.easypark.model
 
 import android.os.Parcelable
 import com.gilboot.easypark.util.generateId

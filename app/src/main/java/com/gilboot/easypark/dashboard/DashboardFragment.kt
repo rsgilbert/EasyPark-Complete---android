@@ -21,7 +21,7 @@ import com.gilboot.easypark.util.getUserFromPrefs
 // The park also removes vehicles that have left
 class DashboardFragment : Fragment() {
     private val dashboardViewModel: DashboardViewModel by activityViewModels {
-        DashboardViewModelFactory(getUserFromPrefs()!!.id)
+        DashboardViewModelFactory(getUserFromPrefs()!!._id)
     }
 
     val dashboardAdapter = DashboardAdapter(dashboardOnClickListener)
@@ -72,7 +72,7 @@ fun Fragment.recheckLogin() {
 
 val DashboardFragment.dashboardOnClickListener: DashboardAdapter.OnClickListener
     get() = DashboardAdapter.OnClickListener {
-        navigateToVisit(it.id)
+        navigateToVisit(it._id)
     }
 
 fun DashboardFragment.navigateToVisit(visitId: String) {

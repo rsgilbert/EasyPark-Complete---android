@@ -1,10 +1,10 @@
 package com.gilboot.easypark.util
 
 import androidx.fragment.app.Fragment
-import com.gilboot.easypark.data.Driver
-import com.gilboot.easypark.data.Park
-import com.gilboot.easypark.data.Vehicle
-import com.gilboot.easypark.data.Visit
+import com.gilboot.easypark.model.Driver
+import com.gilboot.easypark.model.Park
+import com.gilboot.easypark.model.Vehicle
+import com.gilboot.easypark.model.Visit
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -31,7 +31,7 @@ val visitCollection: CollectionReference = db.collection("visits")
 val driverCollection: CollectionReference = db.collection("drivers")
 
 fun savePark(park: Park, onSuccess: () -> Unit) {
-    parkCollection.document(park.id)
+    parkCollection.document(park._id)
         .set(park, SetOptions.merge())
         .addOnSuccessListener {
             Timber.i("Saved park: $park")
@@ -71,16 +71,16 @@ fun withAuthDriver(email: String, password: String, lambda: (driver: Driver?) ->
 }
 
 fun withAuthDriverSignup(email: String, password: String, lambda: (driver: Driver?) -> Unit) {
-    val driver = Driver(email = email, password = password)
-    driverCollection
-        .document(driver.id)
-        .set(driver, SetOptions.merge())
-        .addOnSuccessListener {
-            lambda(driver)
-        }
-        .addOnFailureListener {
-            lambda(null)
-        }
+//    val driver = Driver(email = email, password = password)
+//    driverCollection
+//        .document(driver._id)
+//        .set(driver, SetOptions.merge())
+//        .addOnSuccessListener {
+//            lambda(driver)
+//        }
+//        .addOnFailureListener {
+//            lambda(null)
+//        }
 }
 
 fun Fragment.withUpdateVisit(visitId: String, lambda: () -> Unit) {
@@ -93,23 +93,23 @@ fun Fragment.withUpdateVisit(visitId: String, lambda: () -> Unit) {
 }
 
 fun Fragment.withAddVisit(numberplate: String, lambda: (visit: Visit?) -> Unit) {
-    val visit = Visit(
-        parkId = requireContext().getUserFromPrefs()!!.id,
-        numberplate = numberplate,
-        start = Date().time
-    )
-    visitCollection
-        .document(visit.id)
-        .set(visit, SetOptions.merge())
-        .addOnSuccessListener {
-            lambda(visit)
-        }
-        .addOnFailureListener { lambda(null) }
+//    val visit = Visit(
+//        parkId = requireContext().getUserFromPrefs()!!._id,
+//        numberplate = numberplate,
+//        start = Date().time
+//    )
+//    visitCollection
+//        .document(visit._id)
+//        .set(visit, SetOptions.merge())
+//        .addOnSuccessListener {
+//            lambda(visit)
+//        }
+//        .addOnFailureListener { lambda(null) }
 }
 
 fun withAuthParkSignup(park: Park, lambda: (park: Park?) -> Unit) {
     parkCollection
-        .document(park.id)
+        .document(park._id)
         .set(park, SetOptions.merge())
         .addOnSuccessListener {
             Timber.i("Saved park: $park")
@@ -122,7 +122,7 @@ fun withAuthParkSignup(park: Park, lambda: (park: Park?) -> Unit) {
 
 
 fun saveDriver(driver: Driver, onSuccess: () -> Unit) {
-    driverCollection.document(driver.id)
+    driverCollection.document(driver._id)
         .set(driver, SetOptions.merge())
         .addOnSuccessListener {
             Timber.i("Saved driver: $driver")
@@ -132,11 +132,11 @@ fun saveDriver(driver: Driver, onSuccess: () -> Unit) {
 
 //val descendingJourneyListQuery: Query = journeyCollection.orderBy("id", Query.Direction.DESCENDING)
 
-val searchCollection: CollectionReference = db.collection("searches")
+//val searchCollection: CollectionReference = db.collection("searches")
 
 
 //fun saveJourney(journey: Journey) {
-//    journeyCollection.document(journey.id)
+//    journeyCollection.document(journey._id)
 //        .set(journey, SetOptions.merge())
 //        .addOnSuccessListener { Timber.i("Saved journey: $journey") }
 //}
@@ -155,14 +155,14 @@ val searchCollection: CollectionReference = db.collection("searches")
 //}
 //
 
-fun withVehicle(vehicleId: String, lambda: (vehicle: Vehicle?) -> Unit) {
-    vehicleCollection.document(vehicleId)
-        .get()
-        .addOnSuccessListener {
-            Timber.i("Document is $it")
-            lambda(it.toObject())
-        }
-}
+//fun withVehicle(vehicleId: String, lambda: (vehicle: Vehicle?) -> Unit) {
+//    vehicleCollection.document(vehicleId)
+//        .get()
+//        .addOnSuccessListener {
+//            Timber.i("Document is $it")
+//            lambda(it.toObject())
+//        }
+//}
 
 
 fun uploadPicture(

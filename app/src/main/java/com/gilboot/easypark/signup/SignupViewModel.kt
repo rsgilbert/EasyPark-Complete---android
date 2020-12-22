@@ -3,7 +3,7 @@ package com.gilboot.easypark.signup
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import com.gilboot.easypark.data.UserType
+import com.gilboot.easypark.model.UserType
 
 
 // ViewModel for SignupFragment

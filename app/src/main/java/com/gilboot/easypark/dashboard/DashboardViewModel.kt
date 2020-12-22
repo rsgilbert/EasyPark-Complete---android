@@ -2,9 +2,8 @@ package com.gilboot.easypark.dashboard
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gilboot.easypark.data.Visit
+import com.gilboot.easypark.model.Visit
 import com.gilboot.easypark.util.visitCollection
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObjects
 import timber.log.Timber
 

@@ -1,4 +1,4 @@
-package com.gilboot.easypark.data
+package com.gilboot.easypark.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -6,8 +6,10 @@ import kotlinx.android.parcel.Parcelize
 enum class UserType { Driver, Park }
 
 
+// Saved as a shared preference
+// Determines what kind of user is logged in on the phone
 @Parcelize
 data class User(
-    val id: String = "",
+    val _id: String,
     val type: UserType = UserType.Driver
 ) : Parcelable

@@ -3,6 +3,9 @@
 
     <data>
 
+        <variable
+            name="parkinfoViewModel"
+            type="com.gilboot.easypark.parksignup.ParkinfoViewModel" />
     </data>
 
     <ScrollView
@@ -30,6 +33,7 @@
                 android:layout_margin="@dimen/horizontal_margin"
                 android:autofillHints=""
                 android:hint="@string/email"
+                android:text="@{parkinfoViewModel.emailLiveData}"
                 android:inputType="textEmailAddress" />
 
             <TextView
@@ -45,8 +49,24 @@
                 android:layout_margin="@dimen/horizontal_margin"
                 android:autofillHints="@string/password"
                 android:hint="@string/password"
+                android:text="@{parkinfoViewModel.passwordLiveData}"
                 android:inputType="textPassword" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/horizontal_margin"
+                android:text="@string/tel" />
+
+            <EditText
+                android:id="@+id/edit_tel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/horizontal_margin"
+                android:autofillHints="@string/tel"
+                android:hint="@string/tel"
+                android:inputType="phone"
+                android:text="@{parkinfoViewModel.telephoneLiveData}" />
 
             <Button
                 android:id="@+id/button_signup"

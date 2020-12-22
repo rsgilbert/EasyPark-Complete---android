@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.gilboot.easypark.data.Park
+import com.gilboot.easypark.model.Park
 import de.hdodenhof.circleimageview.CircleImageView
 
 

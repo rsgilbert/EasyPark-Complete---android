@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.gilboot.easypark.data.Visit
+import com.gilboot.easypark.model.Visit
 import com.gilboot.easypark.databinding.DashboardItemBinding
 
 
@@ -50,7 +50,7 @@ class DashboardAdapter(private val onClickListener: OnClickListener) :
 
 class ItemDiffCallback : DiffUtil.ItemCallback<Visit>() {
     override fun areItemsTheSame(oldVisit: Visit, newVisit: Visit) =
-        oldVisit.id == newVisit.id
+        oldVisit._id == newVisit._id
 
     override fun areContentsTheSame(oldVisit: Visit, newVisit: Visit) =
         oldVisit == newVisit

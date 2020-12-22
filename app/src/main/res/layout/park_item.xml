@@ -6,7 +6,7 @@
 
         <variable
             name="park"
-            type="com.gilboot.easypark.data.Park" />
+            type="com.gilboot.easypark.model.Park" />
     </data>
 
     <LinearLayout
