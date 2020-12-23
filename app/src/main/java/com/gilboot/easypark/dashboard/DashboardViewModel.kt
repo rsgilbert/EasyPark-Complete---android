@@ -2,15 +2,18 @@ package com.gilboot.easypark.dashboard
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.gilboot.easypark.Repository
 import com.gilboot.easypark.model.Visit
 import com.gilboot.easypark.util.visitCollection
 import com.google.firebase.firestore.ktx.toObjects
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
 // ViewModel for DashboardFragment
-class DashboardViewModel(val parkId: String) : ViewModel() {
-    val visitsLiveData = MutableLiveData<List<Visit>>()
+class DashboardViewModel(val repository: Repository) : ViewModel() {
+    val visitsLiveData = repository.getVisits()
 
     init {
         getVisits()
@@ -19,12 +22,6 @@ class DashboardViewModel(val parkId: String) : ViewModel() {
 }
 
 fun DashboardViewModel.getVisits() {
-    visitCollection
-        .whereEqualTo("parkId", parkId)
-        .whereEqualTo("complete", false)
-        .addSnapshotListener { value, _ ->
-            val visits: List<Visit> = value?.toObjects() ?: emptyList()
-            visitsLiveData.value =  visits.sortedByDescending { v -> v.start }
-            Timber.i("Visits: $visits")
-        }
+    viewModelScope.launch {
+    }
 }

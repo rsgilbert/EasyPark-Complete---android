@@ -1,4 +1,4 @@
-package com.gilboot.easypark.driverlogin
+package com.gilboot.easypark.driversignup
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -6,23 +6,23 @@ import androidx.lifecycle.viewModelScope
 import com.gilboot.easypark.Repository
 import kotlinx.coroutines.launch
 
-class DriverloginViewModel(val repository: Repository) : ViewModel() {
+class DriversignupViewModel(val repository: Repository) : ViewModel() {
     val navigateToParksLiveData = MutableLiveData<Unit>()
 
 }
 
-fun DriverloginViewModel.navigateToParks() {
+fun DriversignupViewModel.navigateToParks() {
     navigateToParksLiveData.value = Unit
 }
 
-fun DriverloginViewModel.navigateToParksComplete() {
+fun DriversignupViewModel.navigateToParksComplete() {
     navigateToParksLiveData.value = null
 }
 
 
-fun DriverloginViewModel.loginDriver(email: String, password: String) {
+fun DriversignupViewModel.signupDriver(email: String, password: String) {
     viewModelScope.launch {
-        val isSuccess = repository.loginDriver(email, password)
+        val isSuccess = repository.signupDriver(email, password)
         isSuccess?.let {
             navigateToParks()
         }

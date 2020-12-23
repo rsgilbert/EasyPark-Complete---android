@@ -14,6 +14,7 @@ import com.gilboot.easypark.setCorrectDrawerMenu
 import com.gilboot.easypark.databinding.FragDashboardParkBinding
 import com.gilboot.easypark.dialogs.NumberplateDialog
 import com.gilboot.easypark.util.getUserFromPrefs
+import com.gilboot.easypark.util.repository
 
 
 // Dashboard where the park records new vehicles
@@ -21,7 +22,7 @@ import com.gilboot.easypark.util.getUserFromPrefs
 // The park also removes vehicles that have left
 class DashboardFragment : Fragment() {
     private val dashboardViewModel: DashboardViewModel by activityViewModels {
-        DashboardViewModelFactory(getUserFromPrefs()!!._id)
+        DashboardViewModelFactory(repository)
     }
 
     val dashboardAdapter = DashboardAdapter(dashboardOnClickListener)

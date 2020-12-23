@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.R
 import com.gilboot.easypark.databinding.FragDriversignupBinding
-import com.gilboot.easypark.util.saveUserToPrefs
-import com.gilboot.easypark.util.withAuthDriverSignup
+import com.gilboot.easypark.driversignup.*
+import com.gilboot.easypark.util.*
 import org.jetbrains.anko.support.v4.toast
 
 
@@ -20,6 +22,9 @@ import org.jetbrains.anko.support.v4.toast
 class DriversignupFragment : Fragment() {
 
     lateinit var binding: FragDriversignupBinding
+    val driversignupViewModel: DriversignupViewModel by viewModels() {
+        DriversignupViewModelFactory(repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,29 +40,43 @@ class DriversignupFragment : Fragment() {
                 false
             )
 
+        driversignupViewModel.navigateToParksLiveData.observe(
+            viewLifecycleOwner,
+            Observer { navigate ->
+                navigate?.let {
+                    navigateToParksStart()
+                    driversignupViewModel.navigateToParksComplete()
+                }
+            })
+
+
+        binding.buttonSignup.setOnClickListener {
+            attemptSignup()
+        }
 
         binding.textLogin.setOnClickListener {
             navigateToDriverlogin()
         }
-
-        binding.buttonSignup.setOnClickListener {
-            attemptsignup()
-        }
-
         return binding.root
     }
 
+
 }
 
-fun DriversignupFragment.attemptsignup() {
-    withAuthDriverSignup(binding.editEmail.text.toString(), binding.editPassword.text.toString()) {
-        when (it) {
-            null -> toast("Failed to signup")
-            else -> {
-                toast(it.toString())
-                requireContext().saveUserToPrefs(it.user)
-                navigateToParksFragment()
-            }
+fun DriversignupFragment.navigateToParksStart() {
+    findNavController().navigate(DriversignupFragmentDirections.actionDriversignupFragmentToParksFragment())
+}
+
+
+fun DriversignupFragment.attemptSignup() {
+    when {
+        !binding.editEmail.isValidInput() -> toast("Invalid email")
+        !binding.editPassword.isValidInput() -> toast("invalid Password")
+        else -> {
+            driversignupViewModel.signupDriver(
+                binding.editEmail.textValue(),
+                binding.editPassword.textValue()
+            )
         }
     }
 }

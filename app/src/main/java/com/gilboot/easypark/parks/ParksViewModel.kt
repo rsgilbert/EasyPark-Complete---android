@@ -2,30 +2,30 @@ package com.gilboot.easypark.parks
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.gilboot.easypark.Repository
 import com.gilboot.easypark.model.Park
 import com.gilboot.easypark.util.parkCollection
 import com.google.firebase.firestore.ktx.toObjects
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
 // holds list of nearby parks to show to the driver
-class ParksViewModel : ViewModel() {
+class ParksViewModel(val repository: Repository) : ViewModel() {
 
-    val parksLiveData = MutableLiveData<List<Park>>()
+    val parksLiveData = repository.getParks()
 
     init {
-        setParks()
+        fetchParks()
     }
+
 
 }
 
-fun ParksViewModel.setParks() {
-    parkCollection.addSnapshotListener { snapshot, e ->
-        if (e != null) {
-            Timber.e("Error listening to park collection")
-            return@addSnapshotListener
-        }
-        val parks: List<Park> = snapshot?.toObjects() ?: emptyList()
-//        parksLiveData.value = parks.sortedByDescending { it.id }
+
+fun ParksViewModel.fetchParks() {
+    viewModelScope.launch {
+        repository.fetchParks()
     }
 }

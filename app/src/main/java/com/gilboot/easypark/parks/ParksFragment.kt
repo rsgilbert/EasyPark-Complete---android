@@ -12,13 +12,15 @@ import com.gilboot.easypark.ParkAdapter
 import com.gilboot.easypark.R
 import com.gilboot.easypark.model.Park
 import com.gilboot.easypark.databinding.FragParksBinding
+import com.gilboot.easypark.parklogin.ParkloginViewModelFactory
 import com.gilboot.easypark.setCorrectDrawerMenu
+import com.gilboot.easypark.util.repository
 
 
 // Fragment to show nearby parks
 // operator at that park
 class ParksFragment : Fragment() {
-    private val parksViewModel: ParksViewModel by viewModels()
+    private val parksViewModel: ParksViewModel by viewModels() { ParksViewModelFactory(repository) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
