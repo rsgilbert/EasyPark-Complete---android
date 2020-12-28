@@ -17,20 +17,20 @@ data class VisitTable(
     @PrimaryKey
     val _id: String,
     val parkId: String,
-    val numberplate: String,
     val start: Long,
     val end: Long,
-    val complete: Boolean
+    val arrived: Boolean,
+    val departed: Boolean
 )
 
 fun VisitTable.asModel(): Visit {
     return Visit(
         _id = _id,
         parkId = parkId,
-        numberplate = numberplate,
         start = start,
         end = end,
-        complete = complete
+        arrived = arrived,
+        departed = departed
     )
 }
 

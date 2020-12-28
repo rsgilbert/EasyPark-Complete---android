@@ -42,4 +42,7 @@
     <string name="visit">Visit</string>
     <string name="parklocation">Park Location</string>
     <string name="capacity">Capacity</string>
+    <string name="scan">String</string>
+    <string name="reserve">RESERVE</string>
+    <string name="go_to_map">go to map</string>
 </resources>

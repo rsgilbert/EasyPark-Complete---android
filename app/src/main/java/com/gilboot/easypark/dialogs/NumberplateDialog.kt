@@ -15,9 +15,7 @@ import com.gilboot.easypark.util.withAddVisit
 import org.jetbrains.anko.support.v4.toast
 import java.lang.IllegalStateException
 
-class NumberplateDialog : DialogFragment()
-//    , NumberplateListener
-{
+class NumberplateDialog : DialogFragment() {
 
     lateinit var numberplateListener: NumberplateListener
 
@@ -26,7 +24,7 @@ class NumberplateDialog : DialogFragment()
             val builder = AlertDialog.Builder(it)
             val binding = DialogNumberplateBinding.inflate(LayoutInflater.from(requireContext()))
             builder.setView(binding.root)
-            builder.setPositiveButton("Add")  { _: DialogInterface, _: Int ->
+            builder.setPositiveButton("Add") { _: DialogInterface, _: Int ->
                 run {
                     withAddVisit(binding.numberplate.text.toString()) {
                     }

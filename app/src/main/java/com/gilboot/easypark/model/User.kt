@@ -3,7 +3,7 @@ package com.gilboot.easypark.model
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-enum class UserType { Driver, Park }
+enum class UserType { Driver, Park, None }
 
 
 // Saved as a shared preference

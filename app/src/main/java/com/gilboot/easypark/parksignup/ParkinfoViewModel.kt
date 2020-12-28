@@ -4,8 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.Database
+import com.gilboot.easypark.Event
 import com.gilboot.easypark.Repository
 import com.gilboot.easypark.model.Park
+import com.gilboot.easypark.parklogin.setSnackMessage
 import com.gilboot.easypark.util.uploadPicture
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.launch
@@ -25,6 +27,8 @@ class ParkinfoViewModel(val repository: Repository) : ViewModel() {
     val latLngLiveData = MutableLiveData<LatLng>()
 
     val navigateToDashboardLiveData = MutableLiveData<Unit>()
+
+    val snackMessageLiveData = MutableLiveData<Event<String>>()
 
 
 }
@@ -79,10 +83,18 @@ fun ParkinfoViewModel.signup() {
             telephoneLiveData.value!!,
             latLngLiveData.value!!.latitude,
             latLngLiveData.value!!.longitude,
-            pictureLiveData.value!!
+            pictureLiveData.value!!,
+            capacityLiveData.value!!
         )
         isSuccess?.let {
             navigateToDashboard()
+            setSnackMessage("Successfully sign up")
         }
+        if (isSuccess == null)
+            setSnackMessage("Failed to sign up")
     }
+}
+
+fun ParkinfoViewModel.setSnackMessage(message: String) {
+    snackMessageLiveData.value = Event(message)
 }

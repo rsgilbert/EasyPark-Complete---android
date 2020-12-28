@@ -1,12 +1,14 @@
 package com.gilboot.easypark.util
 
 import android.Manifest
+import android.app.Activity
 import android.content.pm.PackageManager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
@@ -47,5 +49,14 @@ val Fragment.hasRecordingPermissions: Boolean
 //        REQUEST_AUDIO_PERMISSION_CODE
 //    )
 //}
+
+fun Activity.longSnackbar(text: String) {
+    Snackbar.make(findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
+        .show()
+}
+
+fun Fragment.longSnackbar(text: String) {
+    requireActivity().longSnackbar(text)
+}
 
 

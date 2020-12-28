@@ -11,7 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.R
 import com.gilboot.easypark.databinding.FragDriverloginBinding
+import com.gilboot.easypark.driversignup.DriversignupFragment
 import com.gilboot.easypark.util.isValidInput
+import com.gilboot.easypark.util.longSnackbar
 import com.gilboot.easypark.util.repository
 import com.gilboot.easypark.util.textValue
 import org.jetbrains.anko.support.v4.toast
@@ -55,6 +57,9 @@ class DriverloginFragment : Fragment() {
         binding.buttonLogin.setOnClickListener {
             attemptLogin()
         }
+
+        observeSnackMessage()
+
         return binding.root
     }
 
@@ -81,6 +86,14 @@ fun DriverloginFragment.attemptLogin() {
             )
         }
     }
-
 }
 
+fun DriverloginFragment.observeSnackMessage() {
+    driverloginViewModel.snackMessageLiveData.observe(viewLifecycleOwner, Observer {
+        it?.let { event ->
+            event.getContentIfNotHandledOrReturnNull()?.let { msg ->
+                longSnackbar(msg)
+            }
+        }
+    })
+}

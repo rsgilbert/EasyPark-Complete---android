@@ -6,11 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.R
 import com.gilboot.easypark.model.UserType
 import com.gilboot.easypark.databinding.FragChooseBinding
+import com.gilboot.easypark.util.emptyDatabase
 import com.gilboot.easypark.util.getUserFromPrefs
+import com.gilboot.easypark.util.repository
+import kotlinx.coroutines.delay
+import timber.log.Timber
 
 
 /**
@@ -19,6 +25,7 @@ import com.gilboot.easypark.util.getUserFromPrefs
 
 class ChooseFragment : Fragment() {
 
+    private val chooseViewModel: ChooseViewModel by viewModels { ChooseViewModelFactory(repository) }
     lateinit var binding: FragChooseBinding
 
     override fun onCreateView(
@@ -27,12 +34,23 @@ class ChooseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        getUserFromPrefs()?.let {
-            when (it.type) {
-                UserType.Driver -> navigateToParks()
-                UserType.Park -> navigateToDashboard()
+
+        chooseViewModel.userTypeLiveData.observe(viewLifecycleOwner, Observer {
+            Timber.i("emitted $it")
+            it?.let { userType ->
+                when (userType) {
+                    UserType.Driver -> navigateToParks()
+                    UserType.Park -> navigateToDashboard()
+                    else -> {
+                        Timber.i("User type is $userType")
+                        binding.linearLayout.visibility = View.VISIBLE
+                        binding.splashScreen.visibility = View.GONE
+                        startFromAfresh()
+                    }
+                }
             }
-        }
+        })
+
 
         binding =
             DataBindingUtil.inflate(
@@ -64,4 +82,8 @@ fun ChooseFragment.navigateToParks() {
 
 fun ChooseFragment.navigateToDashboard() {
     findNavController().navigate(ChooseFragmentDirections.actionChooseFragmentToDashboardFragment())
+}
+
+fun ChooseFragment.startFromAfresh() {
+    emptyDatabase()
 }

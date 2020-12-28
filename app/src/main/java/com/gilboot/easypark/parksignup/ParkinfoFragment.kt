@@ -29,6 +29,7 @@ import org.jetbrains.anko.support.v4.toast
 import timber.log.Timber
 import java.io.InputStream
 import androidx.lifecycle.observe
+import com.gilboot.easypark.parklogin.ParkloginFragment
 
 
 class ParkinfoFragment : Fragment() {
@@ -71,6 +72,8 @@ class ParkinfoFragment : Fragment() {
 
         binding.picture.setOnClickListener { startImagePicker() }
         binding.buttonSignup.setOnClickListener { attemptSignup() }
+
+        observeSnackMessage()
 
         return binding.root
     }
@@ -200,6 +203,16 @@ fun ParkinfoFragment.startImagePicker() {
     val intent = Intent(Intent.ACTION_GET_CONTENT)
     intent.type = "image/*"
     startActivityForResult(intent, PICK_PHOTO_REQUEST_CODE)
+}
+
+fun ParkinfoFragment.observeSnackMessage() {
+    parkinfoViewModel.snackMessageLiveData.observe(viewLifecycleOwner, Observer {
+        it?.let { event ->
+            event.getContentIfNotHandledOrReturnNull()?.let { msg ->
+                longSnackbar(msg)
+            }
+        }
+    })
 }
 
 

@@ -52,9 +52,10 @@ class ParksFragment : Fragment() {
 
 val ParksFragment.parkOnClickListener: ParkAdapter.OnClickListener
     get() = ParkAdapter.OnClickListener {
-        navigateToParklocation(it)
+        navigateToPark(it._id)
     }
 
-fun ParksFragment.navigateToParklocation(park: Park) {
-//    findNavController().navigate(ParksFragmentDirections.actionParksFragmentToParklocationFragment(park))
+fun ParksFragment.navigateToPark(parkId: String) {
+    findNavController().navigate(ParksFragmentDirections.actionParksFragmentToParkFragment(parkId))
 }
+

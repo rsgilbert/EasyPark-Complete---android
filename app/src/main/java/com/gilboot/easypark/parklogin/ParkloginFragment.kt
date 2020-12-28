@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.R
 import com.gilboot.easypark.databinding.FragParkloginBinding
 import com.gilboot.easypark.util.isValidInput
+import com.gilboot.easypark.util.longSnackbar
 import com.gilboot.easypark.util.repository
 import com.gilboot.easypark.util.textValue
 import org.jetbrains.anko.support.v4.toast
@@ -55,6 +56,9 @@ class ParkloginFragment : Fragment() {
         binding.buttonLogin.setOnClickListener {
             attemptLogin()
         }
+
+        observeSnackMessage()
+
         return binding.root
     }
 
@@ -82,4 +86,14 @@ fun ParkloginFragment.attemptLogin() {
 fun ParkloginFragment.navigateToDashboard() {
     val action = ParkloginFragmentDirections.actionParkloginFragmentToDashboardFragment()
     findNavController().navigate(action)
+}
+
+fun ParkloginFragment.observeSnackMessage() {
+    parkloginViewModel.snackMessageLiveData.observe(viewLifecycleOwner, Observer {
+        it?.let { event ->
+            event.getContentIfNotHandledOrReturnNull()?.let { msg ->
+                longSnackbar(msg)
+            }
+        }
+    })
 }

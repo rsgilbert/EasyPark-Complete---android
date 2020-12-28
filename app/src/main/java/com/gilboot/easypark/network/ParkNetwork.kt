@@ -12,7 +12,8 @@ data class ParkNetwork(
     val tel: String,
     val lat: Double,
     val lng: Double,
-    val picture: String
+    val picture: String,
+    val capacity: Int
 )
 
 fun ParkNetwork.asDatabaseTable(): ParkTable {
@@ -24,7 +25,8 @@ fun ParkNetwork.asDatabaseTable(): ParkTable {
         tel = tel,
         lat = lat,
         lng = lng,
-        picture = picture
+        picture = picture,
+        capacity = capacity
     )
 }
 

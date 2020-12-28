@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -19,6 +20,7 @@ import com.gilboot.easypark.model.UserType
 import com.gilboot.easypark.databinding.ActivityMainBinding
 import com.gilboot.easypark.util.getUserFromPrefs
 import com.gilboot.easypark.util.removeUserFromPrefs
+import com.gilboot.easypark.util.repository
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -44,9 +46,11 @@ class MainActivity : AppCompatActivity() {
             AppBarConfiguration(
                 setOf(
                     R.id.chooseFragment,
-//                    R.id.infoFragment,
+                    R.id.driverloginFragment,
+                    R.id.driversignupFragment,
+                    R.id.parksignupFragment,
+                    R.id.parkloginFragment,
                     R.id.dashboardFragment,
-//                    R.id.driverInfoFragment,
                     R.id.parksFragment
                 ),
                 drawerLayout
@@ -99,14 +103,12 @@ private fun MainActivity.connectDrawerToController(navView: NavigationView) =
 
 // check if a user is logged in and set appropriate drawer menu
 fun MainActivity.setCorrectDrawerMenu() {
-    val user: User? = getUserFromPrefs()
-    if (user != null) {
-        when (user.type) {
+    lifecycleScope.launchWhenCreated {
+        when (repository.getUserType()) {
             UserType.Driver -> setupDriverUI()
             UserType.Park -> setupParkUI()
+            UserType.None -> setupAuthUI()
         }
-    } else {
-        setupAuthUI()
     }
 }
 

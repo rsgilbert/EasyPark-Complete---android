@@ -1,15 +1,19 @@
 package com.gilboot.easypark.util
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.gilboot.easypark.R
 import com.gilboot.easypark.Repository
 import com.gilboot.easypark.database.Database
 import com.gilboot.easypark.model.User
 import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.*
 
 
@@ -35,7 +39,7 @@ fun Context.getUserFromPrefs(): User? = jsonToUser(getSharedPrefs().getString("u
 
 fun Fragment.getUserFromPrefs() = requireContext().getUserFromPrefs()
 
-val Fragment.parkIdFromPrefs : String?
+val Fragment.parkIdFromPrefs: String?
     get() = getUserFromPrefs()?._id
 
 // remove user from shared preferences by setting user to empty string
@@ -64,9 +68,22 @@ fun EditText.textValue(): String {
     return text.toString()
 }
 
+val Activity.repository: Repository
+    get() {
+        val database = Database.getInstance(this)
+        return Repository(database.dao)
+    }
 val Fragment.repository: Repository
     get() {
         val activity = requireNotNull(activity)
         val database = Database.getInstance(activity)
         return Repository(database.dao)
     }
+
+fun Fragment.emptyDatabase() {
+    viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+        withContext(Dispatchers.IO) {
+            Database.getInstance(requireActivity()).clearAllTables()
+        }
+    }
+}

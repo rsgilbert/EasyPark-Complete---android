@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.R
 import com.gilboot.easypark.databinding.FragDriversignupBinding
 import com.gilboot.easypark.driversignup.*
+import com.gilboot.easypark.parklogin.ParkloginFragment
 import com.gilboot.easypark.util.*
 import org.jetbrains.anko.support.v4.toast
 
@@ -57,6 +58,9 @@ class DriversignupFragment : Fragment() {
         binding.textLogin.setOnClickListener {
             navigateToDriverlogin()
         }
+
+        observeSnackMessage()
+
         return binding.root
     }
 
@@ -88,4 +92,14 @@ fun DriversignupFragment.navigateToDriverlogin() {
 fun DriversignupFragment.navigateToParksFragment() {
     val action = DriversignupFragmentDirections.actionDriversignupFragmentToParksFragment()
     findNavController().navigate(action)
+}
+
+fun DriversignupFragment.observeSnackMessage() {
+    driversignupViewModel.snackMessageLiveData.observe(viewLifecycleOwner, Observer {
+        it?.let { event ->
+            event.getContentIfNotHandledOrReturnNull()?.let { msg ->
+                longSnackbar(msg)
+            }
+        }
+    })
 }

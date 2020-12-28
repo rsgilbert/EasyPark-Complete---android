@@ -16,7 +16,8 @@ data class Park(
     val tel: String,
     val lat: Double,
     val lng: Double,
-    val picture: String
+    val picture: String,
+    val capacity: Int
 ) : Parcelable {
     @IgnoredOnParcel
     val user: User = User(_id, UserType.Park)

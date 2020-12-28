@@ -22,7 +22,8 @@ data class ParkTable(
     val tel: String,
     val lat: Double,
     val lng: Double,
-    val picture: String
+    val picture: String,
+    val capacity: Int
 )
 
 fun ParkTable.asModel(): Park {
@@ -34,7 +35,8 @@ fun ParkTable.asModel(): Park {
         tel = tel,
         lat = lat,
         lng = lng,
-        picture = picture
+        picture = picture,
+        capacity = capacity
     )
 }
 

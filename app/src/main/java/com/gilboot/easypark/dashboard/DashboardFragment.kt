@@ -1,20 +1,26 @@
 package com.gilboot.easypark.dashboard
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.MainActivity
 import com.gilboot.easypark.R
+import com.gilboot.easypark.databinding.FragDashboardBinding
 import com.gilboot.easypark.setCorrectDrawerMenu
 import com.gilboot.easypark.databinding.FragDashboardParkBinding
 import com.gilboot.easypark.dialogs.NumberplateDialog
 import com.gilboot.easypark.util.getUserFromPrefs
 import com.gilboot.easypark.util.repository
+import com.google.zxing.client.android.Intents
+import com.google.zxing.integration.android.IntentIntegrator
+import org.jetbrains.anko.longToast
+import org.jetbrains.anko.support.v4.longToast
+import timber.log.Timber
 
 
 // Dashboard where the park records new vehicles
@@ -25,10 +31,9 @@ class DashboardFragment : Fragment() {
         DashboardViewModelFactory(repository)
     }
 
-    val dashboardAdapter = DashboardAdapter(dashboardOnClickListener)
 
+    lateinit var binding: FragDashboardBinding
 
-    lateinit var binding: FragDashboardParkBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,47 +45,62 @@ class DashboardFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(
                 inflater,
-                R.layout.frag_dashboard_park,
+                R.layout.frag_dashboard,
                 container,
                 false
             )
 
-
-//        recheckLogin()
         binding.dashboardViewModel = dashboardViewModel
-        binding.apply {
-            lifecycleOwner = viewLifecycleOwner
-            visitList.adapter = dashboardAdapter
-            fabAdd.setOnClickListener {
-                showNumberplateDialog()
-                dashboardViewModel?.getVisits()
-            }
-        }
-
+        binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
-
-
     }
 
-
-}
-
-fun Fragment.recheckLogin() {
-    (activity as MainActivity).setCorrectDrawerMenu()
-}
-
-
-val DashboardFragment.dashboardOnClickListener: DashboardAdapter.OnClickListener
-    get() = DashboardAdapter.OnClickListener {
-        navigateToVisit(it._id)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.dashboard_options_menu, menu)
     }
 
-fun DashboardFragment.navigateToVisit(visitId: String) {
-    findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToVisitFragment(visitId))
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.scan -> scanQr()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        if (!arrayOf(SCAN_REQUEST_CODE, IntentIntegrator.REQUEST_CODE).contains(requestCode)) {
+            super.onActivityResult(requestCode, resultCode, data)
+            return
+        }
+        val result = IntentIntegrator.parseActivityResult(resultCode, data)
+        when (result.contents) {
+            null -> {
+                when {
+                    result.originalIntent == null -> longToast("Cancelled")
+                    result.originalIntent.hasExtra(Intents.Scan.MISSING_CAMERA_PERMISSION) -> longToast(
+                        "Cancelled"
+                    )
+                }
+            }
+            else -> {
+                longToast("Scanned: ${result.contents}")
+                Timber.i("Results:")
+                Timber.i(result.contents)
+            }
+        }
+    }
 }
 
-fun Fragment.showNumberplateDialog() {
-    NumberplateDialog().show(childFragmentManager, "numberplate dialog")
+fun DashboardFragment.scanQr() {
+    val integrator = IntentIntegrator(requireActivity())
+    integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+    integrator.initiateScan()
 }
+
+const val SCAN_REQUEST_CODE = 1
 

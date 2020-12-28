@@ -8,7 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.databinding.FragParksBinding
+import com.gilboot.easypark.util.emptyDatabase
 import com.gilboot.easypark.util.removeUserFromPrefs
+import com.gilboot.easypark.util.repository
 
 class SignoutFragment : Fragment() {
 
@@ -19,6 +21,8 @@ class SignoutFragment : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
 
+        // empty room database
+        emptyDatabase()
 
         // navigate to chooseFragment
         requireContext().removeUserFromPrefs()

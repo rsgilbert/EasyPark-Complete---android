@@ -1,19 +1,7 @@
-package com.gilboot.easypark.park.registration
-
-
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import com.gilboot.easypark.*
-import com.gilboot.easypark.util.saveUserToPrefs
-import org.jetbrains.anko.support.v4.toast
-
+package com.gilboot.easypark
 
 // Set the location of the Park
-class LocationFragment : MapFragment() {
+//class LocationFragment : MapFragment() {
 //    val parkViewModel: ParkViewModel by activityViewModels()
 //
 //
@@ -67,11 +55,3 @@ class LocationFragment : MapFragment() {
 //
 //        return true
 //    }
-
-}
-
-// navigate to DashboardFragment
-//fun LocationFragment.navigateToDashboard() {
-//    val action = LocationFragmentDirections.actionLocationFragmentToDashboardFragment()
-//    findNavController().navigate(action)
-//}

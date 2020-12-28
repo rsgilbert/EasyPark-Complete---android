@@ -10,10 +10,10 @@ import kotlinx.android.parcel.Parcelize
 data class Visit(
     val _id: String,
     val parkId: String,
-    val numberplate: String,
     val start: Long,
     val end: Long,
-    val complete: Boolean
+    val arrived: Boolean,
+    val departed: Boolean
 ) : Parcelable {
     fun getTimeSpent() = timeSpent(start, end)
 }

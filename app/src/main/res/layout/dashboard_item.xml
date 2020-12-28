@@ -47,7 +47,6 @@
                 android:textColor="@android:color/primary_text_light"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="@{visit.numberplate}"
                 tools:text="UGX210L" />
 
             <TextView

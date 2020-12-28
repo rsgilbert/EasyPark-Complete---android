@@ -20,8 +20,8 @@
         android:label="@string/parks"
         tools:layout="@layout/frag_parks" >
         <action
-            android:id="@+id/action_parksFragment_to_parklocationFragment"
-            app:destination="@id/parklocationFragment" />
+            android:id="@+id/action_parksFragment_to_parkFragment"
+            app:destination="@id/parkFragment" />
     </fragment>
 
     <fragment
@@ -78,7 +78,7 @@
     <fragment
         android:id="@+id/parkinfoFragment"
         android:name="com.gilboot.easypark.parksignup.ParkinfoFragment"
-        android:label="ParkinfoFragment"
+        android:label="@string/park_info"
         tools:layout="@layout/frag_parkinfo">
         <action
             android:id="@+id/action_parkinfoFragment_to_dashboardFragment"
@@ -89,8 +89,7 @@
     <fragment
         android:id="@+id/visitFragment"
         android:name="com.gilboot.easypark.visit.VisitFragment"
-        android:label="@string/visit"
-        tools:layout="@layout/frag_visit">
+        android:label="@string/visit">
         <argument
             android:name="visitId"
             app:argType="string" />
@@ -141,6 +140,18 @@
             app:destination="@id/chooseFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/parkFragment"
+        android:name="com.gilboot.easypark.park.ParkFragment"
+        android:label="ParkFragment"
+        tools:layout="@layout/frag_park">
+        <action
+            android:id="@+id/action_parkFragment_to_parklocationFragment"
+            app:destination="@id/parklocationFragment" />
+        <argument
+            android:name="parkId"
+            app:argType="string" />
     </fragment>
 
 

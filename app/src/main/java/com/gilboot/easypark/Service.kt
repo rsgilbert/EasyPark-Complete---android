@@ -9,7 +9,7 @@ import retrofit2.http.*
 
 private const val localUrl = "http://10.0.2.2:3000"
 private const val baseUrl = "https://gentle-cove-07440.herokuapp.com"
-private const val inUseUrl = baseUrl
+private const val inUseUrl = localUrl
 
 /**
  * A retrofit service to fetch EasyPark information.
@@ -35,7 +35,8 @@ interface Service {
         @Field("tel") tel: String,
         @Field("lat") lat: Double,
         @Field("lng") lng: Double,
-        @Field("picture") picture: String
+        @Field("picture") picture: String,
+        @Field("capacity") capacity: Int
     ): ParkNetwork
 
 
@@ -68,17 +69,17 @@ interface Service {
         @Field("parkId")
         parkId: String,
 
-        @Field("numberplate")
-        numberplate: String,
-
         @Field("start")
         start: Long,
 
         @Field("end")
         end: Long,
 
-        @Field("complete")
-        complete: Boolean
+        @Field("arrived")
+        arrived: Boolean,
+
+        @Field("departed")
+        departed: Boolean
     ): VisitNetwork
 
 
@@ -93,17 +94,17 @@ interface Service {
         @Field("parkId")
         parkId: String,
 
-        @Field("numberplate")
-        numberplate: String,
-
         @Field("start")
         start: Long,
 
         @Field("end")
         end: Long,
 
-        @Field("complete")
-        complete: Boolean
+        @Field("arrived")
+        arrived: Boolean,
+
+        @Field("departed")
+        departed: Boolean
     ): VisitNetwork
 }
 
@@ -120,3 +121,6 @@ private val service: Service by lazy {
 }
 
 fun getNetworkService() = service
+
+
+
