@@ -6,19 +6,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.gilboot.easypark.model.Reserve
 import com.gilboot.easypark.databinding.ReserveListItemBinding
 import com.gilboot.easypark.model.Visit
 
 
 // Adapter for reserve list
 class ReserveListAdapter(private val onClickListener: OnClickListener) :
-    ListAdapter<Reserve, ReserveListAdapter.ViewHolder>(
+    ListAdapter<Visit, ReserveListAdapter.ViewHolder>(
         ReserveDiffCallback()
     ) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val reserve: Reserve = getItem(position)
+        val reserve: Visit = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(reserve)
         }
@@ -46,7 +45,7 @@ class ReserveListAdapter(private val onClickListener: OnClickListener) :
     }
 
     class OnClickListener(val clickListener: (reserve: Visit) -> Unit) {
-        fun onClick(reserve: Reserve) = clickListener(reserve)
+        fun onClick(reserve: Visit) = clickListener(reserve)
     }
 }
 
@@ -54,6 +53,6 @@ class ReserveDiffCallback : DiffUtil.ItemCallback<Visit>() {
     override fun areItemsTheSame(oldReserve: Visit, newReserve: Visit) =
         oldReserve == newReserve
 
-    override fun areContentsTheSame(oldReserve: Reserve, newReserve: Reserve) =
+    override fun areContentsTheSame(oldReserve: Visit, newReserve: Visit) =
         oldReserve == newReserve
 }

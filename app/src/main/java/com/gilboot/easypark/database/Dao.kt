@@ -19,6 +19,9 @@ interface Dao {
     @Query("SELECT COUNT(*) FROM ParkTable")
     suspend fun countParks(): Int
 
+    @Query("SELECT COUNT(*) FROM VisitTable WHERE parkId = :parkId AND driverId = :driverId")
+    fun countIsReserved(parkId: String, driverId: String): LiveData<Int>
+
     // Queries
     @Query("SELECT * FROM ParkTable")
     fun getParks(): LiveData<List<ParkTable>>
@@ -32,11 +35,18 @@ interface Dao {
     @Query("SELECT * FROM ParkTable LIMIT 1")
     fun getFirstPark(): LiveData<ParkTable>
 
+    @Query("SELECT * FROM DriverTable LIMIT 1")
+    fun getFirstDriver(): LiveData<DriverTable>
+
+    @Query("SELECT * FROM DriverTable LIMIT 1")
+    suspend fun getFirstDriverSuspension(): DriverTable
+
     @Query("SELECT * FROM VisitTable WHERE parkId = :parkId")
     fun getVisits(parkId: String): LiveData<List<VisitTable>>
 
-    @Query("SELECT * FROM ReserveTable WHERE departed = 0")
-    fun getReservations(): LiveData<List<ReserveTable>>
+    // we will consider reservations to be all those visits that have not been completed
+    @Query("SELECT * FROM VisitTable WHERE departed = 0 AND driverId = :driverId ORDER BY start DESC")
+    fun getReservations(driverId: String): LiveData<List<VisitTable>>
 
 
     // Inserts
@@ -55,11 +65,6 @@ interface Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOneDriver(driverTable: DriverTable)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOneReservation(reserveTable: ReserveTable)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertReservations(reserveTables: List<ReserveTable>)
 }
 
 

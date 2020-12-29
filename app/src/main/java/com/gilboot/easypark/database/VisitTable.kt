@@ -20,7 +20,9 @@ data class VisitTable(
     val start: Long,
     val end: Long,
     val arrived: Boolean,
-    val departed: Boolean
+    val departed: Boolean,
+    val parkName: String,
+    val driverId: String
 )
 
 fun VisitTable.asModel(): Visit {
@@ -30,7 +32,9 @@ fun VisitTable.asModel(): Visit {
         start = start,
         end = end,
         arrived = arrived,
-        departed = departed
+        departed = departed,
+        parkName = parkName,
+        driverId = driverId
     )
 }
 

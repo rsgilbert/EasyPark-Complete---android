@@ -79,7 +79,13 @@ interface Service {
         arrived: Boolean,
 
         @Field("departed")
-        departed: Boolean
+        departed: Boolean,
+
+        @Field("parkName")
+        parkName: String,
+
+        @Field("driverId")
+        driverId: String
     ): VisitNetwork
 
 
@@ -104,7 +110,10 @@ interface Service {
         arrived: Boolean,
 
         @Field("departed")
-        departed: Boolean
+        departed: Boolean,
+
+        @Field("driverId")
+        driverId: String
     ): VisitNetwork
 }
 

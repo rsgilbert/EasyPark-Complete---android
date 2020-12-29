@@ -1,10 +1,15 @@
 package com.gilboot.easypark
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import com.gilboot.easypark.database.Dao
-import com.gilboot.easypark.database.ParkTable
+import com.gilboot.easypark.database.DriverTable
 import com.gilboot.easypark.database.asModel
-import com.gilboot.easypark.model.*
+import com.gilboot.easypark.model.Driver
+import com.gilboot.easypark.model.Park
+import com.gilboot.easypark.model.UserType
+import com.gilboot.easypark.model.Visit
 import com.gilboot.easypark.network.DriverNetwork
 import com.gilboot.easypark.network.ParkNetwork
 import com.gilboot.easypark.network.VisitNetwork
@@ -15,6 +20,16 @@ import java.util.*
 
 class Repository(val dao: Dao) {
 
+    fun getDriver(): LiveData<Driver> =
+        dao.getFirstDriver().map { it.asModel() }
+
+    suspend fun getDriverSusp(): DriverTable {
+        return dao.getFirstDriverSuspension()
+    }
+
+    suspend fun getDriverId(): String {
+        return getDriverSusp()._id
+    }
 
     fun getParkId(): LiveData<String> =
         dao.getFirstPark().map {
@@ -31,17 +46,8 @@ class Repository(val dao: Dao) {
 
     fun getParkById(parkId: String): LiveData<Park> = dao.getParkById(parkId).map { it.asModel() }
 
-    fun getReserveList(): LiveData<List<Reserve>> = dao.getReservations().map { it.asModel() }
-
-    suspend fun makeReservation(reserve: Reserve) {
-        try {
-            reserveVisit(reserve.parkId)
-            dao.insertOneReservation(reserve.asDatabaseTable())
-        } catch (e: Exception) {
-            Timber.e("Error while making reservation : $e")
-            e.printStackTrace()
-        }
-    }
+    fun getReserveList(): LiveData<List<Visit>> =
+        getDriver().switchMap { driver -> dao.getReservations(driver._id).map { it.asModel() } }
 
     // return the user type by checking which
     // table has a count of 1 starting with drivers
@@ -193,23 +199,24 @@ class Repository(val dao: Dao) {
         }
     }
 
+
+    // ** IMPORTANT: Called by the Driver **
     // When a driver reserves a slot at the park
     // We set create a visit keeping arrived and departed to false
     suspend fun reserveVisit(parkId: String): Visit? {
+        val park = dao.getParkByIdSuspension(parkId)
         return try {
-            val visit: VisitNetwork = getNetworkService().postVisit(
+            val visitNetwork: VisitNetwork = getNetworkService().postVisit(
                 parkId = parkId,
                 start = Date().time,
                 end = 0,
                 arrived = false,
-                departed = false
+                departed = false,
+                parkName = park.name,
+                driverId = getDriverId()
             )
-            dao.insertOneVisit(visit.asDatabaseTable())
-            val park: ParkTable = dao.getParkByIdSuspension(parkId)
-            dao.insertOneReservation(
-                visit.asDatabaseTable().asModel().asReserveModel(park.name).asDatabaseTable()
-            )
-            visit.asDatabaseTable().asModel()
+            dao.insertOneVisit(visitNetwork.asDatabaseTable())
+            visitNetwork.asDatabaseTable().asModel()
         } catch (e: Exception) {
             Timber.e("Failed to reserve visit: $e")
             e.printStackTrace()
@@ -217,8 +224,16 @@ class Repository(val dao: Dao) {
         }
     }
 
+    fun isReserved(parkId: String): LiveData<Boolean> {
+        return getDriver().switchMap { driver ->
+            dao.countIsReserved(parkId = parkId, driverId = driver._id).map {
+                it > 0
+            }
+        }
+    }
+
     // When a driver enters the park
-    // We set arrived to true and keep departed false
+// We set arrived to true and keep departed false
     suspend fun attendVisit(visit: Visit): Visit? {
         return try {
             val visitNetwork: VisitNetwork = getNetworkService().putVisit(
@@ -227,7 +242,8 @@ class Repository(val dao: Dao) {
                 start = visit.start,
                 end = visit.end,
                 arrived = true,
-                departed = false
+                departed = false,
+                driverId = visit.driverId
             )
             dao.insertOneVisit(visitNetwork.asDatabaseTable())
             visitNetwork.asDatabaseTable().asModel()
@@ -240,7 +256,7 @@ class Repository(val dao: Dao) {
 
 
     // When the driver leaves the park
-    // when a visit is completed we set departed to true
+// when a visit is completed we set departed to true
     suspend fun completeVisit(visit: Visit): Visit? {
         return try {
             val visitNetwork: VisitNetwork = getNetworkService().putVisit(
@@ -249,7 +265,8 @@ class Repository(val dao: Dao) {
                 start = visit.start,
                 end = Date().time,
                 arrived = true,
-                departed = true
+                departed = true,
+                driverId = visit.driverId
             )
             dao.insertOneVisit(visitNetwork.asDatabaseTable())
             visitNetwork.asDatabaseTable().asModel()

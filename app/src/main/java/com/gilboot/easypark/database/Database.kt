@@ -9,7 +9,7 @@ import com.gilboot.easypark.database.ParkTable
 
 // class responsible for creating sqlite database
 @Database(
-    entities = [DriverTable::class, ParkTable::class, VisitTable::class, ReserveTable::class],
+    entities = [DriverTable::class, ParkTable::class, VisitTable::class],
     version = 1,
     exportSchema = false
 )

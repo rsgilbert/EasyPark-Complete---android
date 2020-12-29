@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gilboot.easypark.Event
 import com.gilboot.easypark.Repository
-import com.gilboot.easypark.model.Reserve
 import com.gilboot.easypark.model.Visit
-import com.gilboot.easypark.model.asReserveModel
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.coroutines.launch
@@ -21,7 +19,9 @@ class ParkViewModel(val parkId: String, val repository: Repository) : ViewModel(
 
     val reservedCountLiveData = repository.getCountReservedVisits(parkId)
 
-    val navigateToReserveLiveData = MutableLiveData<Reserve>()
+    val navigateToReserveLiveData = MutableLiveData<Visit>()
+
+    val isReservedLiveData = repository.isReserved(parkId)
 
     // set up sending snack messages
     val snackMessageLiveData = MutableLiveData<Event<String>>()
@@ -41,17 +41,22 @@ fun ParkViewModel.reserveSlot() {
         setSnackMessage("No available slots")
         return
     }
+    // only reserve slot if you haven't already reserved it to the driver
+    if (isReservedLiveData.value == true) {
+        setSnackMessage("You have already reserved a slot at this park")
+        return
+    }
     viewModelScope.launch {
         val visit: Visit? = repository.reserveVisit(parkId)
         if (visit == null) {
             setSnackMessage("Network error. Failed to reserve slot")
             return@launch
         }
-        navigateToReserveStart(visit.asReserveModel(parkLiveData.value!!.name))
+        navigateToReserveStart(visit)
     }
 }
 
-fun ParkViewModel.navigateToReserveStart(reserve: Reserve) {
+fun ParkViewModel.navigateToReserveStart(reserve: Visit) {
     navigateToReserveLiveData.value = reserve
 }
 

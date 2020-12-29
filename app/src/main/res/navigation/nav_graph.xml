@@ -154,7 +154,9 @@
             app:argType="string" />
         <action
             android:id="@+id/action_parkFragment_to_reserveFragment"
-            app:destination="@id/reserveFragment" />
+            app:destination="@id/reserveFragment"
+            app:popUpTo="@id/parkFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/reserveListFragment"
@@ -163,7 +165,7 @@
         tools:layout="@layout/reserve_list">
         <argument
             android:name="reserve"
-            app:argType="com.gilboot.easypark.model.Reserve" />
+            app:argType="com.gilboot.easypark.model.Visit" />
         <action
             android:id="@+id/action_reserveListFragment_to_reserveFragment"
             app:destination="@id/reserveFragment" />
@@ -171,11 +173,11 @@
     <fragment
         android:id="@+id/reserveFragment"
         android:name="com.gilboot.easypark.reserve.ReserveFragment"
-        android:label="@string/reserve"
+        android:label="@string/reserve_label"
         tools:layout="@layout/frag_reserve">
         <argument
             android:name="reserve"
-            app:argType="com.gilboot.easypark.model.Reserve" />
+            app:argType="com.gilboot.easypark.model.Visit" />
     </fragment>
 
 

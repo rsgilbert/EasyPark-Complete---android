@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.gilboot.easypark.R
-import com.gilboot.easypark.model.Reserve
 import com.gilboot.easypark.databinding.ReserveListBinding
+import com.gilboot.easypark.model.Visit
 import com.gilboot.easypark.setCorrectDrawerMenu
 import com.gilboot.easypark.util.repository
 
@@ -54,7 +54,7 @@ val ReserveListFragment.reserveOnClickListener: ReserveListAdapter.OnClickListen
         navigateToReserve(it)
     }
 
-fun ReserveListFragment.navigateToReserve(reserve: Reserve) {
+fun ReserveListFragment.navigateToReserve(reserve: Visit) {
     findNavController().navigate(
         ReserveListFragmentDirections.actionReserveListFragmentToReserveFragment(
             reserve

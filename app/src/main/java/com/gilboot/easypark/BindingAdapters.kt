@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.gilboot.easypark.model.Park
-import com.gilboot.easypark.model.Reserve
-import com.gilboot.easypark.model.asVisitModel
+import com.gilboot.easypark.model.Visit
 import com.gilboot.easypark.reservelist.ReserveListAdapter
 import com.gilboot.easypark.util.QrSize
 import com.gilboot.easypark.util.setQrCode
@@ -74,7 +73,7 @@ fun RecyclerView.addDivider(shouldAdd: Boolean?) =
 
 // adapter for reserveList
 @BindingAdapter("reserveList")
-fun RecyclerView.bindReserveList(reserveList: List<Reserve>?) {
+fun RecyclerView.bindReserveList(reserveList: List<Visit>?) {
     reserveList?.let {
         (adapter as ReserveListAdapter).submitList(it)
     }
@@ -83,17 +82,17 @@ fun RecyclerView.bindReserveList(reserveList: List<Reserve>?) {
 
 // setting qr code to image view
 @BindingAdapter("setSmallQr")
-fun ImageView.bindSmallQr(reserve: Reserve?) {
+fun ImageView.bindSmallQr(reserve: Visit?) {
     reserve?.let {
-        setQrCode(it.asVisitModel(), QrSize.SMALL)
+        setQrCode(it, QrSize.SMALL)
     }
 }
 
 // setting qr code to image view
 @BindingAdapter("setLargeQr")
-fun ImageView.bindLargeQr(reserve: Reserve?) {
+fun ImageView.bindLargeQr(reserve: Visit?) {
     reserve?.let {
-        setQrCode(it.asVisitModel(), QrSize.LARGE)
+        setQrCode(it, QrSize.LARGE)
     }
 }
 

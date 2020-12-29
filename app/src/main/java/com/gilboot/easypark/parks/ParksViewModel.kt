@@ -24,5 +24,6 @@ class ParksViewModel(val repository: Repository) : ViewModel() {
 fun ParksViewModel.fetchParks() {
     viewModelScope.launch {
         repository.fetchParks()
+        repository.updateVisits()
     }
 }

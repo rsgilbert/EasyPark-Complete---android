@@ -13,20 +13,12 @@ data class Visit(
     val start: Long,
     val end: Long,
     val arrived: Boolean,
-    val departed: Boolean
+    val departed: Boolean,
+    val parkName: String,
+    val driverId: String
 ) : Parcelable {
     fun getTimeSpent() = timeSpent(start, end)
 }
 
 
-fun Visit.asReserveModel(parkName: String): Reserve {
-    return Reserve(
-        _id = _id,
-        parkId = parkId,
-        start = start,
-        end = end,
-        arrived = arrived,
-        departed = departed,
-        parkName = parkName
-    )
-}
+
