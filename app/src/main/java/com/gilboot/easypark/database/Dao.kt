@@ -19,7 +19,7 @@ interface Dao {
     @Query("SELECT COUNT(*) FROM ParkTable")
     suspend fun countParks(): Int
 
-    @Query("SELECT COUNT(*) FROM VisitTable WHERE parkId = :parkId AND driverId = :driverId")
+    @Query("SELECT COUNT(*) FROM VisitTable WHERE parkId = :parkId AND driverId = :driverId AND departed = 0")
     fun countIsReserved(parkId: String, driverId: String): LiveData<Int>
 
     // Queries
@@ -28,6 +28,9 @@ interface Dao {
 
     @Query("SELECT * FROM ParkTable WHERE _id = :id LIMIT 1")
     fun getParkById(id: String): LiveData<ParkTable>
+
+    @Query("SELECT * FROM VisitTable WHERE _id = :visitId LIMIT 1")
+    suspend fun getVisitById(visitId: String): VisitTable
 
     @Query("SELECT * FROM ParkTable WHERE _id = :id LIMIT 1")
     suspend fun getParkByIdSuspension(id: String): ParkTable

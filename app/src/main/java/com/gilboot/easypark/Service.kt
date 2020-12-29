@@ -8,8 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 private const val localUrl = "http://10.0.2.2:3000"
-private const val baseUrl = "https://gentle-cove-07440.herokuapp.com"
-private const val inUseUrl = localUrl
+private const val baseUrl = "https://gentle-cove-07440.herokuapp.com/"
+private const val inUseUrl = baseUrl
 
 /**
  * A retrofit service to fetch EasyPark information.
@@ -92,9 +92,12 @@ interface Service {
     // put
 
     @FormUrlEncoded
-    @PUT("visits/{_id}")
+    @PUT("visits/{visitId}")
     suspend fun putVisit(
-        @Path("_id")
+        @Path("visitId")
+        visitId: String,
+
+        @Field("_id")
         _id: String,
 
         @Field("parkId")

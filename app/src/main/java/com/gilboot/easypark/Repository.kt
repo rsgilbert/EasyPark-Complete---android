@@ -20,6 +20,8 @@ import java.util.*
 
 class Repository(val dao: Dao) {
 
+    suspend fun getVisitSuspension(visitId: String): Visit? = dao.getVisitById(visitId).asModel()
+
     fun getDriver(): LiveData<Driver> =
         dao.getFirstDriver().map { it.asModel() }
 
@@ -58,8 +60,6 @@ class Repository(val dao: Dao) {
             dao.countDrivers() == 1 -> UserType.Driver
             dao.countParks() == 1 -> UserType.Park
             else -> {
-                Timber.i("Drivers: ${dao.countDrivers()}")
-                Timber.i("Parks: ${dao.countParks()}")
                 UserType.None
             }
         }
@@ -233,10 +233,11 @@ class Repository(val dao: Dao) {
     }
 
     // When a driver enters the park
-// We set arrived to true and keep departed false
+    // We set arrived to true and keep departed false
     suspend fun attendVisit(visit: Visit): Visit? {
         return try {
             val visitNetwork: VisitNetwork = getNetworkService().putVisit(
+                visitId = visit._id,
                 _id = visit._id,
                 parkId = visit.parkId,
                 start = visit.start,
@@ -245,6 +246,8 @@ class Repository(val dao: Dao) {
                 departed = false,
                 driverId = visit.driverId
             )
+            Timber.i("Visit network is $visitNetwork")
+            Timber.i("Visit table is ${visitNetwork.asDatabaseTable()}")
             dao.insertOneVisit(visitNetwork.asDatabaseTable())
             visitNetwork.asDatabaseTable().asModel()
         } catch (e: Exception) {
@@ -260,6 +263,7 @@ class Repository(val dao: Dao) {
     suspend fun completeVisit(visit: Visit): Visit? {
         return try {
             val visitNetwork: VisitNetwork = getNetworkService().putVisit(
+                visitId = visit._id,
                 _id = visit._id,
                 parkId = visit.parkId,
                 start = visit.start,
@@ -268,6 +272,8 @@ class Repository(val dao: Dao) {
                 departed = true,
                 driverId = visit.driverId
             )
+            Timber.i("Visit network is $visitNetwork")
+            Timber.i("Visit table is ${visitNetwork.asDatabaseTable()}")
             dao.insertOneVisit(visitNetwork.asDatabaseTable())
             visitNetwork.asDatabaseTable().asModel()
         } catch (e: Exception) {
