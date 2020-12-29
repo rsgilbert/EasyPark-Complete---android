@@ -5,7 +5,9 @@
         android:id="@+id/parksFragment"
         android:title="@string/parks" />
 
-
+    <item
+        android:id="@+id/reserveListFragment"
+        android:title="@string/reserve_list" />
 
     <item
         android:id="@+id/signoutFragment"

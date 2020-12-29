@@ -3,12 +3,8 @@ package com.gilboot.easypark.dialogs
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
-import com.gilboot.easypark.databinding.DialogNumberplateBinding
-import com.gilboot.easypark.util.withAddVisit
 
 class ScanDialog : DialogFragment() {
     lateinit var scanListener: ScanListener

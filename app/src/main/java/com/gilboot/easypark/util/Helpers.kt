@@ -2,9 +2,12 @@ package com.gilboot.easypark.util
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.widget.EditText
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.gilboot.easypark.R
@@ -85,5 +88,14 @@ fun Fragment.emptyDatabase() {
         withContext(Dispatchers.IO) {
             Database.getInstance(requireActivity()).clearAllTables()
         }
+    }
+}
+
+fun Context.dialPhoneNumber(phoneNumber: String) {
+    val intent = Intent(Intent.ACTION_DIAL).apply {
+        data = Uri.parse("tel:$phoneNumber")
+    }
+    if (intent.resolveActivity(packageManager) != null) {
+        startActivity(intent)
     }
 }

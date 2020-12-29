@@ -20,7 +20,7 @@ import com.gilboot.easypark.util.repository
 // Fragment to show nearby parks
 // operator at that park
 class ParksFragment : Fragment() {
-    private val parksViewModel: ParksViewModel by viewModels() { ParksViewModelFactory(repository) }
+    private val parksViewModel: ParksViewModel by viewModels { ParksViewModelFactory(repository) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,9 +42,7 @@ class ParksFragment : Fragment() {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             parkList.adapter = ParkAdapter(parkOnClickListener)
-
         }
-
 
         return binding.root
     }

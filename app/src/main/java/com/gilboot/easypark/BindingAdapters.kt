@@ -1,6 +1,8 @@
 package com.gilboot.easypark
 
+import android.media.Image
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -9,6 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.gilboot.easypark.model.Park
+import com.gilboot.easypark.model.Reserve
+import com.gilboot.easypark.model.asVisitModel
+import com.gilboot.easypark.reservelist.ReserveListAdapter
+import com.gilboot.easypark.util.QrSize
+import com.gilboot.easypark.util.setQrCode
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -63,3 +70,30 @@ fun RecyclerView.addDivider(shouldAdd: Boolean?) =
             addItemDecoration(itemDec)
         }
     }
+
+
+// adapter for reserveList
+@BindingAdapter("reserveList")
+fun RecyclerView.bindReserveList(reserveList: List<Reserve>?) {
+    reserveList?.let {
+        (adapter as ReserveListAdapter).submitList(it)
+    }
+}
+
+
+// setting qr code to image view
+@BindingAdapter("setSmallQr")
+fun ImageView.bindSmallQr(reserve: Reserve?) {
+    reserve?.let {
+        setQrCode(it.asVisitModel(), QrSize.SMALL)
+    }
+}
+
+// setting qr code to image view
+@BindingAdapter("setLargeQr")
+fun ImageView.bindLargeQr(reserve: Reserve?) {
+    reserve?.let {
+        setQrCode(it.asVisitModel(), QrSize.LARGE)
+    }
+}
+

@@ -2,16 +2,9 @@ package com.gilboot.easypark.visit
 
 
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.gilboot.easypark.R
-import com.gilboot.easypark.util.withUpdateVisit
+//import com.gilboot.easypark.util.withUpdateVisit
 
 
 // Visit where the park records new vehicles
@@ -57,12 +50,12 @@ class VisitFragment : Fragment() {
 }
 
 val VisitFragment.visitIdFromArgs
-get() = VisitFragmentArgs.fromBundle(arguments!!).visitId
+    get() = VisitFragmentArgs.fromBundle(arguments!!).visitId
 
-fun VisitFragment.completeVisit() {
-    withUpdateVisit(visitIdFromArgs) {
-        findNavController().popBackStack()
-    }
-}
-
-
+//fun VisitFragment.completeVisit() {
+//    withUpdateVisit(visitIdFromArgs) {
+//        findNavController().popBackStack()
+//    }
+//}
+//
+//

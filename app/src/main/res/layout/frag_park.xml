@@ -13,64 +13,222 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/dim_18"
         android:gravity="center"
         android:orientation="vertical">
 
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/picture"
-            android:layout_width="106dp"
-            android:layout_height="106dp"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/spacing_normal"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:src="@drawable/add_picture"
-            app:imageUrl="@{parkViewModel.parkLiveData.picture}" />
+            android:layout_marginBottom="64dp"
+            app:imageUrl="@{parkViewModel.parkLiveData.picture}"
+            tools:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/horizontal_margin"
-            android:text="@{parkViewModel.parkLiveData.name}"
-            android:textColor="@android:color/background_dark"
-            android:textSize="@dimen/spacing_large"
-            tools:text="@string/parkname" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/horizontal_margin"
-            android:text="@{String.valueOf(parkViewModel.parkLiveData.capacity)}"
-            android:textColor="@android:color/background_dark"
-            android:textSize="@dimen/spacing_normal"
-            tools:text="Capacity: 14 slots" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/horizontal_margin"
-            android:text="@{String.valueOf(parkViewModel.parkLiveData.capacity)}"
-            android:textColor="@android:color/background_dark"
-            android:textSize="@dimen/spacing_normal"
-            tools:text="Available slots: 3 slots" />
-
-
-        <Button
-            android:id="@+id/button_signup"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:text="@string/reserve" />
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="8dp">
 
-        <Button
-            android:id="@+id/button_map"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_info"
+                android:textColor="@color/colorPrimary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/horizontal_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{parkViewModel.parkLiveData.name}"
+                    android:textColor="@android:color/black"
+                    tools:text="Central Park" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="@android:color/darker_gray"
+                    android:gravity="" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:text="@string/go_to_map"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="8dp">
 
-            android:textColor="@color/colorPrimaryDark" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_spacebar"
+                android:textColor="@color/colorPrimary" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/horizontal_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Available Slots"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(parkViewModel.availableSlotsLiveData)}"
+                    android:textColor="@android:color/black"
+                    tools:text="5" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="@android:color/darker_gray"
+                    android:gravity="" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="8dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_taken" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/horizontal_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Reserved Slots"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(parkViewModel.reservedCountLiveData)}"
+                    android:textColor="@android:color/black"
+                    tools:text="2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="8dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_select_all" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/horizontal_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Capacity"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/finance_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(parkViewModel.parkLiveData.capacity)}"
+                    android:textColor="@android:color/black"
+                    tools:text="15" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--        Actions-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/horizontal_margin"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/reserve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reserve slot" />
+        </LinearLayout>
     </LinearLayout>
 </layout>

@@ -1,24 +1,17 @@
 package com.gilboot.easypark.dashboard
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import com.gilboot.easypark.MainActivity
 import com.gilboot.easypark.R
 import com.gilboot.easypark.databinding.FragDashboardBinding
 import com.gilboot.easypark.setCorrectDrawerMenu
-import com.gilboot.easypark.databinding.FragDashboardParkBinding
-import com.gilboot.easypark.dialogs.NumberplateDialog
-import com.gilboot.easypark.util.getUserFromPrefs
 import com.gilboot.easypark.util.repository
 import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
-import org.jetbrains.anko.longToast
 import org.jetbrains.anko.support.v4.longToast
 import timber.log.Timber
 

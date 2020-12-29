@@ -45,4 +45,7 @@
     <string name="scan">String</string>
     <string name="reserve">RESERVE</string>
     <string name="go_to_map">go to map</string>
+    <string name="call">Call</string>
+    <string name="reserve_list">Reservations</string>
+    <string name="qr_code">QR Code</string>
 </resources>

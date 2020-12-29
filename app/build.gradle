@@ -132,9 +132,6 @@ dependencies {
     // Firebase
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
 
-    // Firestore
-    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.3'
-
     // Firebase Storage
     implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
 //

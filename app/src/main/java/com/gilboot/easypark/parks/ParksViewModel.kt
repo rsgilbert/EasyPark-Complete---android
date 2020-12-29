@@ -4,9 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gilboot.easypark.Repository
-import com.gilboot.easypark.model.Park
-import com.gilboot.easypark.util.parkCollection
-import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

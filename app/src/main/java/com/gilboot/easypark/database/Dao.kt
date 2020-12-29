@@ -26,11 +26,17 @@ interface Dao {
     @Query("SELECT * FROM ParkTable WHERE _id = :id LIMIT 1")
     fun getParkById(id: String): LiveData<ParkTable>
 
+    @Query("SELECT * FROM ParkTable WHERE _id = :id LIMIT 1")
+    suspend fun getParkByIdSuspension(id: String): ParkTable
+
     @Query("SELECT * FROM ParkTable LIMIT 1")
     fun getFirstPark(): LiveData<ParkTable>
 
     @Query("SELECT * FROM VisitTable WHERE parkId = :parkId")
     fun getVisits(parkId: String): LiveData<List<VisitTable>>
+
+    @Query("SELECT * FROM ReserveTable WHERE departed = 0")
+    fun getReservations(): LiveData<List<ReserveTable>>
 
 
     // Inserts
@@ -49,6 +55,11 @@ interface Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOneDriver(driverTable: DriverTable)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOneReservation(reserveTable: ReserveTable)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertReservations(reserveTables: List<ReserveTable>)
 }
 
 

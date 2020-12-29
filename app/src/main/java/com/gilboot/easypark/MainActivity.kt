@@ -51,7 +51,8 @@ class MainActivity : AppCompatActivity() {
                     R.id.parksignupFragment,
                     R.id.parkloginFragment,
                     R.id.dashboardFragment,
-                    R.id.parksFragment
+                    R.id.parksFragment,
+                    R.id.reserveListFragment
                 ),
                 drawerLayout
             )

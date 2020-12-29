@@ -1,20 +1,3 @@
-package com.gilboot.easypark.dashboard
-
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import com.gilboot.easypark.MainActivity
-import com.gilboot.easypark.R
-import com.gilboot.easypark.setCorrectDrawerMenu
-import com.gilboot.easypark.databinding.FragDashboardParkBinding
-import com.gilboot.easypark.dialogs.NumberplateDialog
-import com.gilboot.easypark.util.getUserFromPrefs
-import com.gilboot.easypark.util.repository
 
 
 // Dashboard where the park records new vehicles

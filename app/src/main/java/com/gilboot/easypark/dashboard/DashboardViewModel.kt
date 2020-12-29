@@ -1,18 +1,16 @@
 package com.gilboot.easypark.dashboard
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
 import com.gilboot.easypark.Repository
-import com.gilboot.easypark.model.Visit
-import com.gilboot.easypark.util.visitCollection
-import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 
 // ViewModel for DashboardFragment
 class DashboardViewModel(val repository: Repository) : ViewModel() {
     val parkId = repository.getParkId()
-    val visitsLiveData = repository.getVisits()
 
     val availableSlotsLiveData = parkId.switchMap { repository.getCountAvailableSlots(it) }
 

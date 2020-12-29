@@ -2,10 +2,9 @@ package com.gilboot.easypark
 
 import androidx.lifecycle.*
 import com.gilboot.easypark.database.Dao
+import com.gilboot.easypark.database.ParkTable
 import com.gilboot.easypark.database.asModel
-import com.gilboot.easypark.model.Park
-import com.gilboot.easypark.model.UserType
-import com.gilboot.easypark.model.Visit
+import com.gilboot.easypark.model.*
 import com.gilboot.easypark.network.DriverNetwork
 import com.gilboot.easypark.network.ParkNetwork
 import com.gilboot.easypark.network.VisitNetwork
@@ -32,6 +31,17 @@ class Repository(val dao: Dao) {
 
     fun getParkById(parkId: String): LiveData<Park> = dao.getParkById(parkId).map { it.asModel() }
 
+    fun getReserveList(): LiveData<List<Reserve>> = dao.getReservations().map { it.asModel() }
+
+    suspend fun makeReservation(reserve: Reserve) {
+        try {
+            reserveVisit(reserve.parkId)
+            dao.insertOneReservation(reserve.asDatabaseTable())
+        } catch (e: Exception) {
+            Timber.e("Error while making reservation : $e")
+            e.printStackTrace()
+        }
+    }
 
     // return the user type by checking which
     // table has a count of 1 starting with drivers
@@ -127,8 +137,11 @@ class Repository(val dao: Dao) {
     suspend fun fetchParks() {
         try {
             val parks: List<ParkNetwork> = getNetworkService().fetchParks()
+            Timber.i(parks.toString())
             dao.insertParks(parks.asDatabaseTable())
         } catch (e: Exception) {
+            Timber.e("Failed to fetch parks: $e")
+            e.printStackTrace()
             null
         }
     }
@@ -192,6 +205,10 @@ class Repository(val dao: Dao) {
                 departed = false
             )
             dao.insertOneVisit(visit.asDatabaseTable())
+            val park: ParkTable = dao.getParkByIdSuspension(parkId)
+            dao.insertOneReservation(
+                visit.asDatabaseTable().asModel().asReserveModel(park.name).asDatabaseTable()
+            )
             visit.asDatabaseTable().asModel()
         } catch (e: Exception) {
             Timber.e("Failed to reserve visit: $e")

@@ -11,7 +11,13 @@ import kotlinx.coroutines.launch
 
 class DriverloginViewModel(val repository: Repository) : ViewModel() {
     val navigateToParksLiveData = MutableLiveData<Unit>()
+
+
+    // set up sending snack messages
     val snackMessageLiveData = MutableLiveData<Event<String>>()
+    fun setSnackMessage(message: String) {
+        snackMessageLiveData.value = Event(message)
+    }
 
 }
 
@@ -23,9 +29,6 @@ fun DriverloginViewModel.navigateToParksComplete() {
     navigateToParksLiveData.value = null
 }
 
-fun DriverloginViewModel.setSnackMessage(message: String) {
-    snackMessageLiveData.value = Event(message)
-}
 
 fun DriverloginViewModel.loginDriver(email: String, password: String) {
     viewModelScope.launch {

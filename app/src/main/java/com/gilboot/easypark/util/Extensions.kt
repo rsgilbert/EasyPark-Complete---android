@@ -1,17 +1,24 @@
 package com.gilboot.easypark.util
 
 import android.Manifest
+import android.R
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.widget.ImageView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.gilboot.easypark.model.Visit
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.google.zxing.BarcodeFormat
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
+import timber.log.Timber
 
 val Fragment.supportActionBar: ActionBar?
     get() =
@@ -59,4 +66,26 @@ fun Fragment.longSnackbar(text: String) {
     requireActivity().longSnackbar(text)
 }
 
+fun Visit.toJson(): String = Gson().toJson(this, Visit::class.java)
 
+fun String.toVisit(): Visit = Gson().fromJson(this, Visit::class.java)
+
+
+enum class QrSize { SMALL, LARGE }
+
+
+fun ImageView.setQrCode(visit: Visit, qrSize: QrSize) {
+    val size = when (qrSize) {
+        QrSize.SMALL -> 60
+        QrSize.LARGE -> 300
+    }
+    try {
+        val barcodeEncoder = BarcodeEncoder()
+        val bitmap =
+            barcodeEncoder.encodeBitmap(visit.toJson(), BarcodeFormat.QR_CODE, size, size)
+        setImageBitmap(bitmap)
+    } catch (e: Exception) {
+        Timber.e("Failed to generate qr code: $e")
+        e.printStackTrace()
+    }
+}
