@@ -4,6 +4,7 @@ import android.Manifest
 import android.R
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.widget.ImageView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -73,6 +74,20 @@ fun String.toVisit(): Visit = Gson().fromJson(this, Visit::class.java)
 
 enum class QrSize { SMALL, LARGE }
 
+fun generateQrBitmap(visit: Visit, qrSize: QrSize): Bitmap? {
+    val size = when (qrSize) {
+        QrSize.SMALL -> 60
+        QrSize.LARGE -> 300
+    }
+    return try {
+        val barcodeEncoder = BarcodeEncoder()
+        barcodeEncoder.encodeBitmap(visit.toJson(), BarcodeFormat.QR_CODE, size, size)
+    } catch (e: Exception) {
+        Timber.e("Failed to generate qr code: $e")
+        e.printStackTrace()
+        null
+    }
+}
 
 fun ImageView.setQrCode(visit: Visit, qrSize: QrSize) {
     val size = when (qrSize) {

@@ -1,5 +1,6 @@
 package com.gilboot.easypark
 
+import android.graphics.Bitmap
 import android.media.Image
 import android.widget.ImageView
 import android.widget.TextView
@@ -94,5 +95,10 @@ fun ImageView.bindLargeQr(reserve: Visit?) {
     reserve?.let {
         setQrCode(it, QrSize.LARGE)
     }
+}
+
+@BindingAdapter("setBitmap")
+fun ImageView.bindBitmap(bitmap: Bitmap?) {
+    bitmap?.let { setImageBitmap(bitmap) }
 }
 

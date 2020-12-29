@@ -49,4 +49,6 @@
     <string name="reserve_list">Reservations</string>
     <string name="qr_code">QR Code</string>
     <string name="reserve_label">Reservation</string>
+    <string name="share">Share</string>
+    <string name="download">Download</string>
 </resources>

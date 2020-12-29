@@ -21,6 +21,6 @@
             android:layout_height="300dp"
             android:layout_gravity="center"
             android:contentDescription="@string/qr_code"
-            app:setLargeQr="@{reserveViewModel.reserve}" />
+            app:setBitmap="@{reserveViewModel.bitMap}" />
     </LinearLayout>
 </layout>
